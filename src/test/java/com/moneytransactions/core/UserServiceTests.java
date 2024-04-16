@@ -1,0 +1,54 @@
+package com.moneytransactions.core;
+
+import com.moneytransactions.core.user.UserService;
+import com.moneytransactions.core.user.UserRepository;
+import com.moneytransactions.core.user.UserCreationRequest;
+import com.moneytransactions.core.exception.RequestException;
+
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest
+@ActiveProfiles("test")
+public class UserServiceTests {
+  private final String document = "identity";
+  private final String fullName = "John Doe";
+  private final String email = "john@doe";
+  private final String password = "123";
+
+  @Autowired private UserRepository userRepository;
+  @Autowired private UserService userService;
+
+  @BeforeEach
+  public void cleanUsersRepository() {
+    userRepository.deleteAll();
+  }
+
+  @Test
+  public void userCreationSucceeds() {
+    var request = getCreationRequest();
+
+    var user = userService.create(request);
+
+    assertThat(user.getEmail()).isEqualTo(email);
+    assertThat(user.getPassword()).isNotEqualTo(password);
+  }
+
+  @Test
+  public void userCreationFailsWhenEmailAlreadyInUse() {
+    var request = getCreationRequest();
+    userService.create(request);
+
+    assertThrows(RequestException.class, () -> {
+      userService.create(request);
+    });
+  }
+
+  private UserCreationRequest getCreationRequest() {
+    return new UserCreationRequest(document, fullName, email, password);
+  }
+}
