@@ -5,11 +5,9 @@ import com.moneytransactions.core.user.User;
 import com.moneytransactions.core.wallet.Wallet;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest
 public class WalletTests {
   @Test
   public void walletCreation() {

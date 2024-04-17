@@ -3,10 +3,8 @@ package com.moneytransactions.core;
 import com.moneytransactions.core.user.User;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
 public class UserTests {
   private final String document = "identity";
   private final String fullName = "John Doe";
