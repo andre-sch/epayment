@@ -1,4 +1,4 @@
-package com.epayment.core;
+package com.epayment.core.wallet;
 
 import java.math.BigDecimal;
 import com.epayment.core.entities.*;

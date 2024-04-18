@@ -1,4 +1,4 @@
-package com.epayment.core;
+package com.epayment.core.transaction;
 
 import java.util.Optional;
 import java.math.BigDecimal;

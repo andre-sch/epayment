@@ -1,4 +1,4 @@
-package com.epayment.core;
+package com.epayment.core.user;
 
 import com.epayment.core.repositories.*;
 import com.epayment.core.services.createUser.*;

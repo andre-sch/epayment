@@ -1,7 +1,8 @@
-package com.epayment.core;
+package com.epayment.core.transaction;
 
 import java.util.Optional;
 import java.math.BigDecimal;
+import com.epayment.core.CashMachine;
 import com.epayment.core.entities.*;
 import com.epayment.core.repositories.*;
 import com.epayment.core.services.withdrawResource.*;
