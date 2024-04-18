@@ -3,14 +3,14 @@ package com.moneytransactions.core.user;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class CreateUserService {
   private UserRepository userRepository;
 
-  public UserService(UserRepository repository) {
+  public CreateUserService(UserRepository repository) {
     this.userRepository = repository;
   }
 
-  public User create(UserCreationRequest request) {
+  public User execute(UserCreationRequest request) {
     boolean emailAlreadyInUse = this.userRepository.findByEmail(request.email).isPresent();
     if (emailAlreadyInUse) throw new DuplicateUserException("email already in use");
 

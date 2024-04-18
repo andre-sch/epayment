@@ -22,7 +22,7 @@ public class WalletServiceTests {
 
   @MockBean private UserRepository userRepository;
   @MockBean private WalletRepository walletRepository;
-  @InjectMocks private WalletService walletService;
+  @InjectMocks private CreateWalletService createWalletService;
 
   @Test
   public void walletCreationSucceeds() {
@@ -30,7 +30,7 @@ public class WalletServiceTests {
     when(this.userRepository.findById(ownerId))
       .thenReturn(Optional.of(owner));
 
-    var wallet = this.walletService.create(ownerId);
+    var wallet = this.createWalletService.execute(ownerId);
 
     assertThat(wallet.getOwner()).isEqualTo(owner);
     assertThat(wallet.getBalance()).isEqualTo(BigDecimal.ZERO);
@@ -39,7 +39,7 @@ public class WalletServiceTests {
   @Test
   public void walletCreationFailsWithOwnerAbsent() {
     assertThrows(OwnerAbsentException.class, () -> {
-      this.walletService.create(ownerId);
+      this.createWalletService.execute(ownerId);
     });
   }
 }

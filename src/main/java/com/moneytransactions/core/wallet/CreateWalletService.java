@@ -4,11 +4,11 @@ import com.moneytransactions.core.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WalletService {
+public class CreateWalletService {
   private WalletRepository walletRepository;
   private UserRepository userRepository;
   
-  public WalletService(
+  public CreateWalletService(
     WalletRepository walletRepository,
     UserRepository userRepository
   ) {
@@ -16,7 +16,7 @@ public class WalletService {
     this.userRepository = userRepository;
   }
 
-  public Wallet create(int ownerId) {
+  public Wallet execute(int ownerId) {
     var ownerSearch = this.userRepository.findById(ownerId);
 
     if (ownerSearch.isEmpty()) {

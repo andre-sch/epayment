@@ -17,7 +17,7 @@ public class UserServiceTests {
   private final String password = "123";
 
   @Autowired private UserRepository userRepository;
-  @Autowired private UserService userService;
+  @Autowired private CreateUserService createUserService;
 
   @BeforeEach
   public void cleanUsersRepository() {
@@ -28,7 +28,7 @@ public class UserServiceTests {
   public void userCreationSucceeds() {
     var request = getCreationRequest();
 
-    var user = this.userService.create(request);
+    var user = this.createUserService.execute(request);
 
     assertThat(user.getEmail()).isEqualTo(email);
     assertThat(user.getPassword()).isNotEqualTo(password);
@@ -37,10 +37,10 @@ public class UserServiceTests {
   @Test
   public void userCreationFailsWhenEmailAlreadyInUse() {
     var request = getCreationRequest();
-    this.userService.create(request);
+    this.createUserService.execute(request);
 
     assertThrows(DuplicateUserException.class, () -> {
-      this.userService.create(request);
+      this.createUserService.execute(request);
     });
   }
 
