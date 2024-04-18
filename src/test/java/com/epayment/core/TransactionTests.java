@@ -35,10 +35,10 @@ public class TransactionTests {
   }
   
   @Test
-  public void negativeTransactionFails() {
-    assertThrows(NegativeTransactionException.class, () -> {
+  public void transactionFailsWithInvalidAmount() {
+    assertThrows(InvalidTransactionAmountException.class, () -> {
       var transaction = new Transaction();
-      transaction.setAmount(new BigDecimal(-1));
+      transaction.setAmount(BigDecimal.ZERO);
     });
   }  
 }

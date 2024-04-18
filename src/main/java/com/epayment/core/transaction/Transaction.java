@@ -36,7 +36,7 @@ public class Transaction {
 
   public void setAmount(BigDecimal amount) {
     if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-      throw new NegativeTransactionException("transaction must be positive");
+      throw new InvalidTransactionAmountException("transaction must be positive");
     }
     
     this.amount = amount;
