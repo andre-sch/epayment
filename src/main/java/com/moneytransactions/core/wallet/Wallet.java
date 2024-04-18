@@ -7,8 +7,10 @@ import lombok.*;
 
 @Entity
 @Table(name = "wallets")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Wallet {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @EqualsAndHashCode.Include
   private @Getter int id;
   private @Getter BigDecimal balance = BigDecimal.ZERO;
 
