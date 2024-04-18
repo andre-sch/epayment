@@ -2,6 +2,8 @@ package com.epayment.core.transaction;
 
 import java.time.Instant;
 import java.math.BigDecimal;
+import java.util.Objects;
+
 import com.epayment.core.wallet.Wallet;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,7 +28,7 @@ public class Transaction {
   }
 
   public void setEndpoints(Wallet sender, Wallet receiver) {
-    if (sender.equals(receiver)) {
+    if (Objects.equals(sender, receiver)) {
       throw new SelfTransferException("sender cannot be receiver");
     }
 
