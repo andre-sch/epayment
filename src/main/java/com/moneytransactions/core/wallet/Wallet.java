@@ -16,6 +16,9 @@ public class Wallet {
   private @Getter @Setter User owner;
 
   public Wallet() {}
+  public Wallet(int id) {
+    this.id = id;
+  }
 
   public void credit(BigDecimal value) {
     balance = balance.add(value);

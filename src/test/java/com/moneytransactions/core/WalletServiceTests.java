@@ -18,14 +18,15 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class WalletServiceTests {
+  private final int ownerId = 0;
+
   @MockBean private UserRepository userRepository;
   @MockBean private WalletRepository walletRepository;
   @InjectMocks private WalletService walletService;
 
   @Test
   public void walletCreationSucceeds() {
-    var owner = new User();
-    int ownerId = owner.getId();
+    var owner = new User(ownerId);
     when(userRepository.findById(ownerId))
       .thenReturn(Optional.of(owner));
 
@@ -37,7 +38,6 @@ public class WalletServiceTests {
 
   @Test
   public void walletCreationFailsWithOwnerAbsent() {
-    int ownerId = 0;
     assertThrows(OwnerAbsentException.class, () -> {
       this.walletService.create(ownerId);
     });

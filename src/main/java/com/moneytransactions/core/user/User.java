@@ -18,4 +18,7 @@ public class User {
   private @Getter @Setter String password;
 
   public User() {}
+  public User(int id) {
+    this.id = id;
+  }
 }
