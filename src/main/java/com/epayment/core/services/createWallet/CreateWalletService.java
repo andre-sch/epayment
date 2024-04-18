@@ -1,6 +1,9 @@
-package com.epayment.core.wallet;
+package com.epayment.core.services.createWallet;
 
-import com.epayment.core.user.UserRepository;
+import com.epayment.core.entities.Wallet;
+import com.epayment.core.repositories.UserRepository;
+import com.epayment.core.repositories.WalletRepository;
+import com.epayment.core.exceptions.OwnerAbsentException;
 import org.springframework.stereotype.Service;
 
 @Service

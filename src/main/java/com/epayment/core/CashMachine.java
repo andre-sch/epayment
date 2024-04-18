@@ -1,4 +1,4 @@
-package com.epayment.core.transaction;
+package com.epayment.core;
 
 import java.math.BigDecimal;
 import org.springframework.stereotype.Component;

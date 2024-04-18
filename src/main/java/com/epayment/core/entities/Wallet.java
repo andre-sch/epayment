@@ -1,7 +1,7 @@
-package com.epayment.core.wallet;
+package com.epayment.core.entities;
 
 import java.math.BigDecimal;
-import com.epayment.core.user.User;
+import com.epayment.core.exceptions.*;
 import jakarta.persistence.*;
 import lombok.*;
 

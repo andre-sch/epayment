@@ -1,4 +1,4 @@
-package com.epayment.core.wallet;
+package com.epayment.core.exceptions;
 
 public class InsufficientFundsException extends RuntimeException {
   public InsufficientFundsException(String message) {

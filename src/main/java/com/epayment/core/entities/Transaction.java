@@ -1,10 +1,10 @@
-package com.epayment.core.transaction;
+package com.epayment.core.entities;
 
 import java.time.Instant;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-import com.epayment.core.wallet.Wallet;
+import com.epayment.core.exceptions.*;
 import jakarta.persistence.*;
 import lombok.*;
 

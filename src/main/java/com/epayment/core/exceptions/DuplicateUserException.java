@@ -1,4 +1,4 @@
-package com.epayment.core.user;
+package com.epayment.core.exceptions;
 
 public class DuplicateUserException extends RuntimeException {
   public DuplicateUserException(String message) {

@@ -1,4 +1,4 @@
-package com.epayment.core.user;
+package com.epayment.core.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

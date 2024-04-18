@@ -1,10 +1,10 @@
-package com.epayment.core.transaction.transference;
+package com.epayment.core.services.transferResource;
 
+import com.epayment.core.entities.Transaction;
+import com.epayment.core.repositories.WalletRepository;
+import com.epayment.core.repositories.TransactionRepository;
+import com.epayment.core.exceptions.TransactionEndpointAbsentException;
 import jakarta.transaction.Transactional;
-import com.epayment.core.transaction.Transaction;
-import com.epayment.core.transaction.TransactionRepository;
-import com.epayment.core.transaction.TransactionEndpointAbsentException;
-import com.epayment.core.wallet.WalletRepository;
 import org.springframework.stereotype.Service;
 
 @Service

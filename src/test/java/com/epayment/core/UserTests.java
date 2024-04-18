@@ -1,6 +1,6 @@
 package com.epayment.core;
 
-import com.epayment.core.user.User;
+import com.epayment.core.entities.*;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;

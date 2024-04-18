@@ -1,4 +1,4 @@
-package com.epayment.core.transaction.withdrawal;
+package com.epayment.core.services.withdrawResource;
 
 import java.math.BigDecimal;
 import lombok.*;

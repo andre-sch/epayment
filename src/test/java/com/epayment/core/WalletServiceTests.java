@@ -2,8 +2,10 @@ package com.epayment.core;
 
 import java.util.Optional;
 import java.math.BigDecimal;
-import com.epayment.core.user.*;
-import com.epayment.core.wallet.*;
+import com.epayment.core.entities.*;
+import com.epayment.core.repositories.*;
+import com.epayment.core.services.createWallet.*;
+import com.epayment.core.exceptions.*;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,4 +1,4 @@
-package com.epayment.core.transaction;
+package com.epayment.core.exceptions;
 
 public class InvalidTransactionAmountException extends RuntimeException {
   public InvalidTransactionAmountException(String message) {

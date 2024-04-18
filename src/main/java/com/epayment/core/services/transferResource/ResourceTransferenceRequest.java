@@ -1,4 +1,4 @@
-package com.epayment.core.transaction.transference;
+package com.epayment.core.services.transferResource;
 
 import java.math.BigDecimal;
 import lombok.*;

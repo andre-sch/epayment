@@ -1,6 +1,9 @@
 package com.epayment.core;
 
-import com.epayment.core.user.*;
+import com.epayment.core.repositories.*;
+import com.epayment.core.services.createUser.*;
+import com.epayment.core.exceptions.*;
+
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

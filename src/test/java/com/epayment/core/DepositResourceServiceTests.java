@@ -2,9 +2,10 @@ package com.epayment.core;
 
 import java.util.Optional;
 import java.math.BigDecimal;
-import com.epayment.core.wallet.*;
-import com.epayment.core.transaction.*;
-import com.epayment.core.transaction.deposit.*;
+import com.epayment.core.entities.*;
+import com.epayment.core.repositories.*;
+import com.epayment.core.services.depositResource.*;
+import com.epayment.core.exceptions.*;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

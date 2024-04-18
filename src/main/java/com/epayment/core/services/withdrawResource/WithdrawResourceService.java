@@ -1,9 +1,11 @@
-package com.epayment.core.transaction.withdrawal;
+package com.epayment.core.services.withdrawResource;
 
+import com.epayment.core.CashMachine;
+import com.epayment.core.entities.Transaction;
+import com.epayment.core.repositories.WalletRepository;
+import com.epayment.core.repositories.TransactionRepository;
+import com.epayment.core.exceptions.TransactionEndpointAbsentException;
 import jakarta.transaction.Transactional;
-import com.epayment.core.transaction.*;
-import com.epayment.core.wallet.*;
-
 import org.springframework.stereotype.Service;
 
 @Service

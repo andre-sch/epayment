@@ -1,4 +1,4 @@
-package com.epayment.core.user;
+package com.epayment.core.services.createUser;
 
 import lombok.*;
 

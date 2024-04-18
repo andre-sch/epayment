@@ -1,8 +1,8 @@
 package com.epayment.core;
 
 import java.math.BigDecimal;
-import com.epayment.core.wallet.*;
-import com.epayment.core.transaction.*;
+import com.epayment.core.entities.*;
+import com.epayment.core.exceptions.*;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
