@@ -21,14 +21,14 @@ public class UserServiceTests {
 
   @BeforeEach
   public void cleanUsersRepository() {
-    userRepository.deleteAll();
+    this.userRepository.deleteAll();
   }
 
   @Test
   public void userCreationSucceeds() {
     var request = getCreationRequest();
 
-    var user = userService.create(request);
+    var user = this.userService.create(request);
 
     assertThat(user.getEmail()).isEqualTo(email);
     assertThat(user.getPassword()).isNotEqualTo(password);
@@ -37,10 +37,10 @@ public class UserServiceTests {
   @Test
   public void userCreationFailsWhenEmailAlreadyInUse() {
     var request = getCreationRequest();
-    userService.create(request);
+    this.userService.create(request);
 
     assertThrows(DuplicateUserException.class, () -> {
-      userService.create(request);
+      this.userService.create(request);
     });
   }
 

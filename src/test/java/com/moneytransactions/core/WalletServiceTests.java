@@ -27,7 +27,7 @@ public class WalletServiceTests {
   @Test
   public void walletCreationSucceeds() {
     var owner = new User(ownerId);
-    when(userRepository.findById(ownerId))
+    when(this.userRepository.findById(ownerId))
       .thenReturn(Optional.of(owner));
 
     var wallet = this.walletService.create(ownerId);

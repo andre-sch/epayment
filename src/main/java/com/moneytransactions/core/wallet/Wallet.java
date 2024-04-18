@@ -23,14 +23,14 @@ public class Wallet {
   }
 
   public void credit(BigDecimal value) {
-    balance = balance.add(value);
+    this.balance = this.balance.add(value);
   }
 
   public void debit(BigDecimal value) {
-    if (balance.compareTo(value) < 0) {
+    if (this.balance.compareTo(value) < 0) {
       throw new InsufficientFundsException("balance cannot be negative");
     }
 
-    balance = balance.subtract(value);
+    this.balance = this.balance.subtract(value);
   }
 }

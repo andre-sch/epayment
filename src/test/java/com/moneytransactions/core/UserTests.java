@@ -15,12 +15,12 @@ public class UserTests {
   public void userCreation() {
     var user = new User();
 
-    user.setDocument(this.document);
-    user.setFullName(this.fullName);
-    user.setEmail(this.email);
-    user.setPassword(this.password);
+    user.setDocument(document);
+    user.setFullName(fullName);
+    user.setEmail(email);
+    user.setPassword(password);
 
-    assertThat(user.getDocument()).isEqualTo(this.document);
-    assertThat(user.getFullName()).isEqualTo(this.fullName);
+    assertThat(user.getDocument()).isEqualTo(document);
+    assertThat(user.getFullName()).isEqualTo(fullName);
   }
 }
