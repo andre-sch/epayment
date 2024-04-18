@@ -1,7 +1,6 @@
 package com.moneytransactions.core.wallet;
 
 import com.moneytransactions.core.user.UserRepository;
-import com.moneytransactions.core.exception.RequestException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,7 +20,7 @@ public class WalletService {
     var ownerSearch = this.userRepository.findById(ownerId);
 
     if (ownerSearch.isEmpty()) {
-      throw new RequestException("owner does not exist");
+      throw new OwnerAbsentException("owner does not exist");
     }
 
     var owner = ownerSearch.get();

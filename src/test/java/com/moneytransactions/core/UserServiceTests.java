@@ -1,10 +1,6 @@
 package com.moneytransactions.core;
 
-import com.moneytransactions.core.user.UserService;
-import com.moneytransactions.core.user.UserRepository;
-import com.moneytransactions.core.user.UserCreationRequest;
-import com.moneytransactions.core.exception.RequestException;
-
+import com.moneytransactions.core.user.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,7 +39,7 @@ public class UserServiceTests {
     var request = getCreationRequest();
     userService.create(request);
 
-    assertThrows(RequestException.class, () -> {
+    assertThrows(DuplicateUserException.class, () -> {
       userService.create(request);
     });
   }

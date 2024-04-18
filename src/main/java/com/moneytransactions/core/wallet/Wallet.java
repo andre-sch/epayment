@@ -23,7 +23,7 @@ public class Wallet {
 
   public void debit(BigDecimal value) {
     if (balance.compareTo(value) < 0) {
-      throw new ArithmeticException("balance cannot be negative");
+      throw new InsufficientFundsException("balance cannot be negative");
     }
 
     balance = balance.subtract(value);

@@ -3,6 +3,7 @@ package com.moneytransactions.core;
 import java.math.BigDecimal;
 import com.moneytransactions.core.user.User;
 import com.moneytransactions.core.wallet.Wallet;
+import com.moneytransactions.core.wallet.InsufficientFundsException;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,7 +40,7 @@ public class WalletTests {
   public void walletDebitFailsWhenBalanceIsNotEnough() {
     var wallet = new Wallet();
 
-    assertThrows(ArithmeticException.class, () -> {
+    assertThrows(InsufficientFundsException.class, () -> {
       wallet.debit(BigDecimal.ONE);
     });
   }

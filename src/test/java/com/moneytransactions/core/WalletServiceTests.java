@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.math.BigDecimal;
 import com.moneytransactions.core.user.*;
 import com.moneytransactions.core.wallet.*;
-import com.moneytransactions.core.exception.*;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,9 +36,9 @@ public class WalletServiceTests {
   }
 
   @Test
-  public void walletCreationFailsWhenOwnerIsAbsent() {
+  public void walletCreationFailsWithOwnerAbsent() {
     int ownerId = 0;
-    assertThrows(RequestException.class, () -> {
+    assertThrows(OwnerAbsentException.class, () -> {
       this.walletService.create(ownerId);
     });
   }
