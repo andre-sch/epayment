@@ -3,6 +3,7 @@ package com.epayment.core.transaction.transference;
 import jakarta.transaction.Transactional;
 import com.epayment.core.transaction.Transaction;
 import com.epayment.core.transaction.TransactionRepository;
+import com.epayment.core.transaction.TransactionEndpointAbsentException;
 import com.epayment.core.wallet.WalletRepository;
 import org.springframework.stereotype.Service;
 
