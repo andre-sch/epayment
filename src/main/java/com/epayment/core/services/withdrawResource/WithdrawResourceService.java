@@ -1,6 +1,6 @@
 package com.epayment.core.services.withdrawResource;
 
-import com.epayment.core.CashMachine;
+import com.epayment.core.interfaces.CashMachine;
 import com.epayment.core.entities.Transaction;
 import com.epayment.core.repositories.WalletRepository;
 import com.epayment.core.repositories.TransactionRepository;
