@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class WalletServiceTests {
+public class CreateWalletServiceTests {
   private final int ownerId = 0;
 
   @MockBean private UserRepository userRepository;

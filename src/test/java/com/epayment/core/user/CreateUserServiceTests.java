@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class UserServiceTests {
+public class CreateUserServiceTests {
   private final String document = "identity";
   private final String fullName = "John Doe";
   private final String email = "john@doe";
