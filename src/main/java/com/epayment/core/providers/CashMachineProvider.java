@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 @Configuration
 public class CashMachineProvider {
-  public @Bean CashMachine provide() {
+  public @Bean CashMachine provideCashMachineStub() {
     return new CashMachineStub();
   }
 }
