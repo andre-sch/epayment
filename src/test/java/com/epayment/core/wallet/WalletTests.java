@@ -36,7 +36,7 @@ public class WalletTests {
     assertThat(wallet.getBalance()).isEqualTo(BigDecimal.ONE);
   }
 
-  public void walletDebitFailsWhenBalanceIsNotEnough() {
+  public void walletDebitFailsWithInsufficientFunds() {
     var wallet = new Wallet();
 
     assertThrows(InsufficientFundsException.class, () -> {

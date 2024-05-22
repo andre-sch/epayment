@@ -3,7 +3,6 @@ package com.epayment.core.services.createWallet;
 import com.epayment.core.entities.Wallet;
 import com.epayment.core.repositories.UserRepository;
 import com.epayment.core.repositories.WalletRepository;
-import com.epayment.core.exceptions.OwnerAbsentException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +22,7 @@ public class CreateWalletService {
     var ownerSearch = this.userRepository.findById(ownerId);
 
     if (ownerSearch.isEmpty()) {
-      throw new OwnerAbsentException("owner does not exist");
+      throw new RuntimeException("owner does not exist");
     }
 
     var owner = ownerSearch.get();

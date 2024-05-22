@@ -3,7 +3,6 @@ package com.epayment.core.services.transferResource;
 import com.epayment.core.entities.Transaction;
 import com.epayment.core.repositories.WalletRepository;
 import com.epayment.core.repositories.TransactionRepository;
-import com.epayment.core.exceptions.TransactionEndpointAbsentException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +24,8 @@ public class TransferResourceService {
     var senderSearch = this.walletRepository.findById(request.senderId);
     var receiverSearch = this.walletRepository.findById(request.receiverId);
 
-    if (senderSearch.isEmpty()) throw new TransactionEndpointAbsentException("sender does not exist");
-    if (receiverSearch.isEmpty()) throw new TransactionEndpointAbsentException("receiver does not exist");
+    if (senderSearch.isEmpty()) throw new RuntimeException("sender does not exist");
+    if (receiverSearch.isEmpty()) throw new RuntimeException("receiver does not exist");
     
     var sender = senderSearch.get();
     var receiver = receiverSearch.get();
