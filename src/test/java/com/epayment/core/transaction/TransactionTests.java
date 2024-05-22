@@ -11,17 +11,22 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TransactionTests {
   private final int senderId = 0;
   private final int receiverId = 1;
+  private final BigDecimal amount = BigDecimal.ONE;
 
   @Test
   public void transactionSucceeds() {
-    var sender = new Wallet(senderId);
     var receiver = new Wallet(receiverId);
+    var sender = new Wallet(senderId);
+    sender.credit(amount);
 
     var transaction = new Transaction();
     transaction.setEndpoints(sender, receiver);
-    transaction.setAmount(BigDecimal.ONE);
+    transaction.setAmount(amount);
+    transaction.execute();
 
-    assertThat(transaction.getAmount()).isEqualTo(BigDecimal.ONE);
+    assertThat(transaction.getAmount()).isEqualTo(amount);
+    assertThat(receiver.getBalance()).isEqualTo(amount);
+    assertThat(sender.getBalance()).isEqualTo(BigDecimal.ZERO);
   }
 
   @Test

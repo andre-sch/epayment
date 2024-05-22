@@ -27,6 +27,11 @@ public class Transaction {
     this.executedAt = Instant.now();
   }
 
+  public void execute() {
+    this.sender.debit(amount);
+    this.receiver.credit(amount);
+  }
+
   public void setEndpoints(Wallet sender, Wallet receiver) {
     if (Objects.equals(sender, receiver)) {
       throw new SelfTransferException("sender cannot be receiver");

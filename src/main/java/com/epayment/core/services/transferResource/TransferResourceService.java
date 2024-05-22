@@ -31,17 +31,14 @@ public class TransferResourceService {
     var sender = senderSearch.get();
     var receiver = receiverSearch.get();
 
-    sender.debit(request.amount);
-    receiver.credit(request.amount);
-
-    this.walletRepository.save(sender);
-    this.walletRepository.save(receiver);
-
     var transaction = new Transaction();
 
     transaction.setEndpoints(sender, receiver);
     transaction.setAmount(request.amount);
+    transaction.execute();
 
+    this.walletRepository.save(sender);
+    this.walletRepository.save(receiver);
     this.transactionRepository.save(transaction);
 
     return transaction;
