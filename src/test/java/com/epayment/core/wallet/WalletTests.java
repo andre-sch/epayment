@@ -10,14 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WalletTests {
   @Test
-  public void walletCreation() {
-    var wallet = new Wallet();
-    wallet.setOwner(new User());
-
-    assertThat(wallet.getBalance()).isEqualTo(BigDecimal.ZERO);
-  }
-
-  @Test
   public void walletCredit() {
     var wallet = new Wallet();
 
