@@ -10,6 +10,4 @@ Um projeto de aprendizagem, com o objetivo colocar em prática:
 ## Conceitos
 
 - Um `usuário` cadastrado pode abrir uma `conta corrente` para efetuar `transações`
-- O sistema suporta 3 tipos de transações: transferências, saques e depósitos
-
-*Caso uma transação falhe, os recursos não são transferidos.
+- Caso uma transação falhe, os recursos não são transferidos.
