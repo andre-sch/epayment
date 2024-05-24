@@ -8,9 +8,11 @@ import com.epayment.core.services.createWallet.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class CreateWalletServiceTests {
   @Autowired private UserRepository userRepository;
   @Autowired private WalletRepository walletRepository;
