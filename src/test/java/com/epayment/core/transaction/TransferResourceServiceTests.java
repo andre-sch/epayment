@@ -1,51 +1,59 @@
 package com.epayment.core.transaction;
 
-import java.util.Optional;
 import java.math.BigDecimal;
+import com.epayment.core.DummyUser;
 import com.epayment.core.entities.*;
 import com.epayment.core.repositories.*;
 import com.epayment.core.services.transferResource.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.InjectMocks;
-import static org.mockito.Mockito.when;
+import org.springframework.test.context.ActiveProfiles;
+import org.junit.jupiter.api.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 public class TransferResourceServiceTests {
-  private final int senderId = 0;
-  private final int receiverId = 1;
-  private final BigDecimal amount = BigDecimal.TEN;
+  private final BigDecimal zero = BigDecimal.valueOf(0L, 2);
+  private final BigDecimal amount = BigDecimal.valueOf(1L, 2);
 
-  @MockBean private WalletRepository walletRepository;
-  @MockBean private TransactionRepository transactionRepository;
-  @InjectMocks private TransferResourceService transferResourceService;
+  @Autowired private UserRepository userRepository;
+  @Autowired private WalletRepository walletRepository;
+  @Autowired private TransactionRepository transactionRepository;
+  @Autowired private TransferResourceService transferResourceService;
+
+  @BeforeEach
+  public void resetRepositories() {
+    this.transactionRepository.deleteAll();
+    this.walletRepository.deleteAll();
+    this.userRepository.deleteAll();
+  }
 
   @Test
   public void resourceTransferenceSucceeds() {
-    var receiver = this.stubWallet(receiverId);
-    var sender = this.stubWallet(senderId);
-    sender.credit(amount);
+    var receiver = this.insertedWallet();
+    var sender = this.insertedWallet();
 
-    var request = new ResourceTransferenceRequest(senderId, receiverId, amount);
+    var request = new ResourceTransferenceRequest(sender.getId(), receiver.getId(), amount);
     var transaction = this.transferResourceService.execute(request);
 
     assertThat(transaction.getAmount()).isEqualTo(amount);
-    assertThat(receiver.getBalance()).isEqualTo(amount);
-    assertThat(sender.getBalance()).isEqualTo(BigDecimal.ZERO);
+    assertThat(transaction.getReceiver().getBalance()).isEqualTo(amount.add(amount));
+    assertThat(transaction.getSender().getBalance()).isEqualTo(zero);
+    this.transactionRepository.deleteAll();
   }
 
-  private Wallet stubWallet(int id) {
-    var wallet = new Wallet(id);
-    
-    when(this.walletRepository.findById(id))
-      .thenReturn(Optional.of(wallet));
-    
+  private Wallet insertedWallet() {
+    var owner = DummyUser.get();
+    var wallet = new Wallet();
+
+    wallet.setOwner(owner);
+    wallet.credit(amount);
+
+    this.userRepository.save(owner);
+    this.walletRepository.save(wallet);
+
     return wallet;
   }
 }

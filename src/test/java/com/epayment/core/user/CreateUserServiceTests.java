@@ -1,5 +1,6 @@
 package com.epayment.core.user;
 
+import com.epayment.core.DummyUser;
 import com.epayment.core.services.createUser.*;
 
 import org.junit.jupiter.api.*;
@@ -11,20 +12,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 public class CreateUserServiceTests {
-  private final String document = "identity";
-  private final String fullName = "John Doe";
-  private final String email = "john@doe";
-  private final String password = "123";
-
   @Autowired private CreateUserService createUserService;
 
   @Test
   public void userCreationSucceeds() {
-    var request = new UserCreationRequest(document, fullName, email, password);
+    var request = DummyUser.getCreationRequest();
 
     var user = this.createUserService.execute(request);
 
-    assertThat(user.getEmail()).isEqualTo(email);
-    assertThat(user.getPassword()).isNotEqualTo(password);
+    assertThat(user.getEmail()).isEqualTo(request.email);
+    assertThat(user.getPassword()).isNotEqualTo(request.password);
   }
 }

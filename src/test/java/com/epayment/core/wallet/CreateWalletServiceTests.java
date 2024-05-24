@@ -1,36 +1,33 @@
 package com.epayment.core.wallet;
 
-import java.util.Optional;
 import java.math.BigDecimal;
-import com.epayment.core.entities.*;
+import com.epayment.core.DummyUser;
 import com.epayment.core.repositories.*;
 import com.epayment.core.services.createWallet.*;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.InjectMocks;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 public class CreateWalletServiceTests {
-  private final int ownerId = 0;
+  @Autowired private UserRepository userRepository;
+  @Autowired private WalletRepository walletRepository;
+  @Autowired private CreateWalletService createWalletService;
 
-  @MockBean private UserRepository userRepository;
-  @MockBean private WalletRepository walletRepository;
-  @InjectMocks private CreateWalletService createWalletService;
+  @BeforeEach
+  public void resetRepositories() {
+    this.walletRepository.deleteAll();
+    this.userRepository.deleteAll();
+  }
 
   @Test
   public void walletCreationSucceeds() {
-    var owner = new User(ownerId);
-    when(this.userRepository.findById(ownerId))
-      .thenReturn(Optional.of(owner));
+    var owner = DummyUser.get();
+    this.userRepository.save(owner);
 
-    var wallet = this.createWalletService.execute(ownerId);
+    var wallet = this.createWalletService.execute(owner.getId());
 
     assertThat(wallet.getOwner()).isEqualTo(owner);
     assertThat(wallet.getBalance()).isEqualTo(BigDecimal.ZERO);
