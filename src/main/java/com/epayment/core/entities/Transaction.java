@@ -23,13 +23,10 @@ public class Transaction {
   private @Getter BigDecimal amount;
   private @Getter Instant executedAt;
 
-  public Transaction() {
-    this.executedAt = Instant.now();
-  }
-
   public void execute() {
     this.sender.debit(amount);
     this.receiver.credit(amount);
+    this.executedAt = Instant.now();
   }
 
   public void setEndpoints(Wallet sender, Wallet receiver) {
