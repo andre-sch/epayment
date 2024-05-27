@@ -3,7 +3,7 @@ create table if not exists transactions (
   sender_id integer not null,
   receiver_id integer not null,
   amount decimal(10, 2) not null,
-  executed_at timestamp default current_timestamp,
+  completed_at timestamp default current_timestamp,
   foreign key (sender_id) references wallets (id),
   foreign key (receiver_id) references wallets (id)
 );

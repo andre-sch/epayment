@@ -21,12 +21,12 @@ public class Transaction {
   private @Getter Wallet receiver;
   
   private @Getter BigDecimal amount;
-  private @Getter Instant executedAt;
+  private @Getter Instant completedAt;
 
   public void execute() {
     this.sender.debit(amount);
     this.receiver.credit(amount);
-    this.executedAt = Instant.now();
+    this.completedAt = Instant.now();
   }
 
   public void setEndpoints(Wallet sender, Wallet receiver) {
