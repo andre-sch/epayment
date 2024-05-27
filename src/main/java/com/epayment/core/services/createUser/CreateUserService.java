@@ -1,6 +1,6 @@
 package com.epayment.core.services.createUser;
 
-import com.epayment.core.entities.User;
+import com.epayment.core.domain.User;
 import com.epayment.core.repositories.UserRepository;
 
 import org.springframework.stereotype.Service;

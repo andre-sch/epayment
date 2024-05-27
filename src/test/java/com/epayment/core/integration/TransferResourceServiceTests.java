@@ -2,7 +2,7 @@ package com.epayment.core.integration;
 
 import java.math.BigDecimal;
 import com.epayment.core.DummyUser;
-import com.epayment.core.entities.*;
+import com.epayment.core.domain.*;
 import com.epayment.core.repositories.*;
 import com.epayment.core.services.transferResource.*;
 

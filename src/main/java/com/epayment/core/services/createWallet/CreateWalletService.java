@@ -1,6 +1,6 @@
 package com.epayment.core.services.createWallet;
 
-import com.epayment.core.entities.Wallet;
+import com.epayment.core.domain.Wallet;
 import com.epayment.core.repositories.UserRepository;
 import com.epayment.core.repositories.WalletRepository;
 import org.springframework.stereotype.Service;

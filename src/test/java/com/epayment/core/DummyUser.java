@@ -1,7 +1,7 @@
 package com.epayment.core;
 
 import java.util.UUID;
-import com.epayment.core.entities.User;
+import com.epayment.core.domain.User;
 import com.epayment.core.services.createUser.UserCreationRequest;
 
 public class DummyUser {

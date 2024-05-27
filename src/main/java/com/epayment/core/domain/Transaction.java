@@ -1,4 +1,4 @@
-package com.epayment.core.entities;
+package com.epayment.core.domain;
 
 import java.time.Instant;
 import java.math.BigDecimal;

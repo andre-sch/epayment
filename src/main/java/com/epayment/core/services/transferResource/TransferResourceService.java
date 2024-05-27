@@ -1,6 +1,6 @@
 package com.epayment.core.services.transferResource;
 
-import com.epayment.core.entities.Transaction;
+import com.epayment.core.domain.Transaction;
 import com.epayment.core.repositories.WalletRepository;
 import com.epayment.core.repositories.TransactionRepository;
 import jakarta.transaction.Transactional;
