@@ -40,7 +40,7 @@ public class TransactionParser {
     BigDecimal delta,
     Instant timestamp
   ) {
-    return new BalanceChanged(client, delta, new BalanceChanged.Metadata(partner, timestamp));
+    return new BalanceChanged(delta, client, partner, timestamp);
   }
 
   private BalanceChanged.Endpoint buildEndpointOf(Wallet wallet) {
