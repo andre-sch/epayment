@@ -24,7 +24,7 @@ public class Transaction {
   private @Getter Instant completedAt;
 
   @Transient TransactionParser transactionParser = new TransactionParser();
-  @Transient private List<BalanceChanged> events = new LinkedList<>();
+  @Transient @Getter private List<BalanceChanged> events = new LinkedList<>();
 
   public void execute() {
     this.sender.debit(amount);
@@ -34,8 +34,6 @@ public class Transaction {
       .parseBalanceChangesOf(this)
       .forEach(this.events::add);
   }
-
-  public List<BalanceChanged> getEvents() { return this.events; }
 
   public void setEndpoints(Wallet sender, Wallet receiver) {
     if (Objects.equals(sender, receiver)) {
