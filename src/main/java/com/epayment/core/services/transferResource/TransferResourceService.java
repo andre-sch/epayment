@@ -1,5 +1,7 @@
 package com.epayment.core.services.transferResource;
 
+import com.epayment.core.domain.BalanceChanged;
+import com.epayment.core.domain.EventDispatcher;
 import com.epayment.core.domain.Transaction;
 import com.epayment.core.repositories.WalletRepository;
 import com.epayment.core.repositories.TransactionRepository;
@@ -10,13 +12,16 @@ import org.springframework.stereotype.Service;
 public class TransferResourceService {
   private TransactionRepository transactionRepository;
   private WalletRepository walletRepository;
+  private EventDispatcher<BalanceChanged> eventDispatcher;
 
   public TransferResourceService(
     TransactionRepository transactionRepository,
-    WalletRepository walletRepository
+    WalletRepository walletRepository,
+    EventDispatcher<BalanceChanged> eventDispatcher
   ) {
     this.transactionRepository = transactionRepository;
     this.walletRepository = walletRepository;
+    this.eventDispatcher = eventDispatcher;
   }
 
   @Transactional
@@ -39,6 +44,10 @@ public class TransferResourceService {
     this.walletRepository.save(sender);
     this.walletRepository.save(receiver);
     this.transactionRepository.save(transaction);
+    
+    transaction
+      .getEvents()
+      .forEach(this.eventDispatcher::dispatch);
 
     return transaction;
   }
