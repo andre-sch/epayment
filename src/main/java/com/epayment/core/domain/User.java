@@ -17,9 +17,4 @@ public class User {
   @Column(unique = true)
   private @Getter @Setter String email;
   private @Getter @Setter String password;
-
-  public User() {}
-  public User(int id) {
-    this.id = id;
-  }
 }

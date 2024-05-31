@@ -3,21 +3,21 @@ package com.epayment.core.unit;
 import java.math.BigDecimal;
 import com.epayment.core.domain.*;
 import com.epayment.core.exceptions.*;
+import com.epayment.core.utils.*;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TransactionTests {
-  private final int senderId = 0;
-  private final int receiverId = 1;
-  private final BigDecimal amount = BigDecimal.ONE;
+  private final BigDecimal zero = BigDecimal.valueOf(0L, 2);
+  private final BigDecimal amount = BigDecimal.valueOf(1L, 2);
+  private final DummyWalletFactory walletFactory = new DummyWalletFactory();
 
   @Test
   public void transactionSucceeds() {
-    var receiver = new Wallet(receiverId);
-    var sender = new Wallet(senderId);
-    sender.credit(amount);
+    var receiver = walletFactory.build();
+    var sender = walletFactory.build();
 
     var transaction = new Transaction();
     transaction.setEndpoints(sender, receiver);
@@ -25,8 +25,8 @@ public class TransactionTests {
     transaction.execute();
 
     assertThat(transaction.getAmount()).isEqualTo(amount);
-    assertThat(receiver.getBalance()).isEqualTo(amount);
-    assertThat(sender.getBalance()).isEqualTo(BigDecimal.ZERO);
+    assertThat(receiver.getBalance()).isEqualTo(amount.add(amount));
+    assertThat(sender.getBalance()).isEqualTo(zero);
   }
 
   @Test

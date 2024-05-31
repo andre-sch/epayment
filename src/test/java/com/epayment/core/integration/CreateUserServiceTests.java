@@ -1,6 +1,6 @@
 package com.epayment.core.integration;
 
-import com.epayment.core.DummyUser;
+import com.epayment.core.utils.DummyUserFactory;
 import com.epayment.core.services.createUser.*;
 
 import org.junit.jupiter.api.*;
@@ -12,11 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 public class CreateUserServiceTests {
+  private final DummyUserFactory userFactory = new DummyUserFactory();
   @Autowired private CreateUserService createUserService;
 
   @Test
   public void userCreationSucceeds() {
-    var request = DummyUser.getCreationRequest();
+    var request = userFactory.buildRequest();
 
     var user = this.createUserService.execute(request);
 

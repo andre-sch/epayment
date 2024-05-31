@@ -1,10 +1,10 @@
 package com.epayment.core.integration;
 
 import java.math.BigDecimal;
-import com.epayment.core.DummyUser;
 import com.epayment.core.domain.*;
 import com.epayment.core.repositories.*;
 import com.epayment.core.services.transferResource.*;
+import com.epayment.core.utils.DummyWalletFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TransferResourceServiceTests {
   private final BigDecimal zero = BigDecimal.valueOf(0L, 2);
   private final BigDecimal amount = BigDecimal.valueOf(1L, 2);
+  private final DummyWalletFactory walletFactory = new DummyWalletFactory();
 
   @Autowired private UserRepository userRepository;
   @Autowired private WalletRepository walletRepository;
@@ -45,13 +46,9 @@ public class TransferResourceServiceTests {
   }
 
   private Wallet insertedWallet() {
-    var owner = DummyUser.get();
-    var wallet = new Wallet();
+    var wallet = walletFactory.build();
 
-    wallet.setOwner(owner);
-    wallet.credit(amount);
-
-    this.userRepository.save(owner);
+    this.userRepository.save(wallet.getOwner());
     this.walletRepository.save(wallet);
 
     return wallet;

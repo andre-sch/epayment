@@ -7,20 +7,13 @@ import lombok.*;
 
 @Entity
 @Table(name = "wallets")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Wallet {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @EqualsAndHashCode.Include
   private @Getter int id;
   private @Getter BigDecimal balance = BigDecimal.ZERO;
 
   @ManyToOne
   private @Getter @Setter User owner;
-
-  public Wallet() {}
-  public Wallet(int id) {
-    this.id = id;
-  }
 
   public void credit(BigDecimal value) {
     this.balance = this.balance.add(value);

@@ -1,7 +1,7 @@
 package com.epayment.core.integration;
 
 import java.math.BigDecimal;
-import com.epayment.core.DummyUser;
+import com.epayment.core.utils.*;
 import com.epayment.core.repositories.*;
 import com.epayment.core.services.createWallet.*;
 
@@ -14,6 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 public class CreateWalletServiceTests {
+  private final DummyUserFactory userFactory = new DummyUserFactory();
+
   @Autowired private UserRepository userRepository;
   @Autowired private WalletRepository walletRepository;
   @Autowired private CreateWalletService createWalletService;
@@ -26,7 +28,7 @@ public class CreateWalletServiceTests {
 
   @Test
   public void walletCreationSucceeds() {
-    var owner = DummyUser.get();
+    var owner = userFactory.build();
     this.userRepository.save(owner);
 
     var wallet = this.createWalletService.execute(owner.getId());
