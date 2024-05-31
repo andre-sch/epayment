@@ -43,7 +43,7 @@ public class TransactionParser {
     return new BalanceChanged(delta, client, partner, timestamp);
   }
 
-  private BalanceChanged.Endpoint buildEndpointOf(Wallet wallet) {
+  public BalanceChanged.Endpoint buildEndpointOf(Wallet wallet) {
     return new BalanceChanged.Endpoint(
       wallet.getOwner().getEmail(),
       wallet.getOwner().getFullName()
