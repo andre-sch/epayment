@@ -2,9 +2,7 @@ package com.epayment.core.domain;
 
 import java.time.Instant;
 import java.math.BigDecimal;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import com.epayment.core.exceptions.*;
 import jakarta.persistence.*;
@@ -25,18 +23,19 @@ public class Transaction {
   private @Getter BigDecimal amount;
   private @Getter Instant completedAt;
 
-  private List<TransactionCompleted> events = new LinkedList<>();
+  @Transient TransactionParser transactionParser = new TransactionParser();
+  @Transient private List<BalanceChanged> events = new LinkedList<>();
 
   public void execute() {
     this.sender.debit(amount);
     this.receiver.credit(amount);
     this.completedAt = Instant.now();
-    this.events.add(new TransactionCompleted(
-      sender, receiver, amount, completedAt
-    ));
+    this.transactionParser
+      .parseBalanceChangesOf(this)
+      .forEach(this.events::add);
   }
 
-  public List<TransactionCompleted> getEvents() { return this.events; }
+  public List<BalanceChanged> getEvents() { return this.events; }
 
   public void setEndpoints(Wallet sender, Wallet receiver) {
     if (Objects.equals(sender, receiver)) {
@@ -55,10 +54,3 @@ public class Transaction {
     this.amount = amount;
   }
 }
-
-record TransactionCompleted(
-  Wallet sender,
-  Wallet receiver,
-  BigDecimal amount,
-  Instant timestamp
-) {}
