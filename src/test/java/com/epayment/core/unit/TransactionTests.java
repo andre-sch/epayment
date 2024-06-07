@@ -2,7 +2,7 @@ package com.epayment.core.unit;
 
 import java.math.BigDecimal;
 import com.epayment.core.domain.*;
-import com.epayment.core.exceptions.*;
+import com.epayment.core.domain.exceptions.*;
 import com.epayment.core.utils.*;
 
 import org.junit.jupiter.api.Test;

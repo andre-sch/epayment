@@ -1,7 +1,7 @@
 package com.epayment.core.domain;
 
 import java.math.BigDecimal;
-import com.epayment.core.exceptions.*;
+import com.epayment.core.domain.exceptions.*;
 import jakarta.persistence.*;
 import lombok.*;
 
