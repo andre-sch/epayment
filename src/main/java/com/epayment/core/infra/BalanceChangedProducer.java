@@ -1,26 +1,23 @@
 package com.epayment.core.infra;
 
 import com.epayment.core.domain.BalanceChanged;
-import com.epayment.core.domain.EventDispatcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TransactionEventDispatcher implements EventDispatcher<BalanceChanged> {
-  @Autowired private KafkaTemplate<String, String> kafka;
+public class BalanceChangedProducer extends KafkaProducer<BalanceChanged> {
   @Autowired private ObjectMapper mapper;
 
-  public void dispatch(BalanceChanged event) {
-    kafka.send("balances", keyOf(event), valueOf(event));
+  protected String topicOf(BalanceChanged event) {
+    return "balances";
   }
 
-  public String keyOf(BalanceChanged event) {
+  protected String keyOf(BalanceChanged event) {
     return event.client().email();
   }
 
-  public String valueOf(BalanceChanged event) {
+  protected String valueOf(BalanceChanged event) {
     try { return mapper.writeValueAsString(event); }
     catch (Exception e) { throw new RuntimeException(e); }
   }
