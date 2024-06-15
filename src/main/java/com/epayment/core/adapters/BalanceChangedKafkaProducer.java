@@ -1,4 +1,4 @@
-package com.epayment.core.infra;
+package com.epayment.core.adapters;
 
 import com.epayment.core.domain.BalanceChanged;
 import com.epayment.core.application.interfaces.JsonConverter;

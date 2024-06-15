@@ -1,4 +1,4 @@
-package com.epayment.core.infra;
+package com.epayment.core.adapters;
 
 import java.util.function.Consumer;
 
