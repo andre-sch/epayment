@@ -1,5 +1,6 @@
 package com.epayment.core.infra;
 
+import com.epayment.core.application.interfaces.JsonConverter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 

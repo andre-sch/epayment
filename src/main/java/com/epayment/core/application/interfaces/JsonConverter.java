@@ -1,4 +1,4 @@
-package com.epayment.core.infra;
+package com.epayment.core.application.interfaces;
 
 public interface JsonConverter {
   public String serialize(Object input);

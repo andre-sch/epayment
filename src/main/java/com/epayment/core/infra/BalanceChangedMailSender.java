@@ -3,6 +3,7 @@ package com.epayment.core.infra;
 import java.util.Date;
 import java.math.BigDecimal;
 import com.epayment.core.domain.BalanceChanged;
+import com.epayment.core.application.interfaces.JsonConverter;
 
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
