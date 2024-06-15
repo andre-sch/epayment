@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class TransactionEventLogger {
+public class BalanceChangedLogger {
   @KafkaListener(topics = {"balances"}, groupId = "logger")
   public void log(String event) {
     log.info(event);
