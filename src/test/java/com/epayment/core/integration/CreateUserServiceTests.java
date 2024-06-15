@@ -1,7 +1,7 @@
 package com.epayment.core.integration;
 
 import com.epayment.core.utils.DummyUserFactory;
-import com.epayment.core.services.createUser.*;
+import com.epayment.core.application.services.createUser.*;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

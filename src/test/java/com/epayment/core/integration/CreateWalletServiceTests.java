@@ -2,8 +2,8 @@ package com.epayment.core.integration;
 
 import java.math.BigDecimal;
 import com.epayment.core.utils.*;
-import com.epayment.core.repositories.*;
-import com.epayment.core.services.createWallet.*;
+import com.epayment.core.application.repositories.*;
+import com.epayment.core.application.services.createWallet.*;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
