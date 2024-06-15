@@ -1,3 +1,7 @@
-target/
+# editor
 .vscode/
+
+# application
+target/
 logs/
+env.properties

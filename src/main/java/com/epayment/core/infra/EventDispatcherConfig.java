@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class EventDispatcherConfig {
-  @Autowired KafkaProducer<BalanceChanged> producer;
+  @Autowired KafkaProducer<BalanceChanged> kafkaProducer;
 
   @Bean
   public EventDispatcher<BalanceChanged> balanceChangedDispatcher() {
     var dispatcher = new EventDispatcher<BalanceChanged>();
-    dispatcher.attach(producer);
+    dispatcher.attach(kafkaProducer);
     return dispatcher;
   }
 }
