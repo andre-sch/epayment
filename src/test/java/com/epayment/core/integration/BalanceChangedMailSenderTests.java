@@ -43,7 +43,8 @@ public class BalanceChangedMailSenderTests {
 
     expectedMessage.setTo("client@email");
     expectedMessage.setSubject("Transaction completed: received 1.00$ from partnerName");
-    expectedMessage.setText("""
+    expectedMessage.setText(
+      """
       Dear clientName,
 
       Your transaction has been successfully processed. See details:

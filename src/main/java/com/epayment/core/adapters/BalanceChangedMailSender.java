@@ -54,7 +54,8 @@ public class BalanceChangedMailSender {
     dateFormatter.setTimeZone(TimeZone.getTimeZone("GMT"));
     String timestamp = dateFormatter.format(Date.from(event.timestamp()));
 
-    return """
+    return
+      """
       Dear %s,
 
       Your transaction has been successfully processed. See details:
@@ -67,6 +68,6 @@ public class BalanceChangedMailSender {
 
       Best regards,
       Epayment
-    """.formatted(client, partner, delta, timestamp);
+      """.formatted(client, partner, delta, timestamp);
   }
 }
