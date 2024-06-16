@@ -13,9 +13,9 @@ import org.springframework.mail.SimpleMailMessage;
 
 @Component
 public class BalanceChangedMailSender {
-  @Autowired JsonConverter json;
-  @Autowired JavaMailSender mailSender;
-
+  @Autowired private JsonConverter json;
+  @Autowired private JavaMailSender mailSender;
+  
   @KafkaListener(topics = "balances", groupId = "mail")
   public void sendMail(String serializedEvent) {
     var event = json.deserialize(serializedEvent, BalanceChanged.class);
@@ -23,47 +23,32 @@ public class BalanceChangedMailSender {
     var message = new SimpleMailMessage();
 
     message.setTo(event.client().email());
-    message.setSubject(formatSubject(event));
-    message.setText(formatText(event));
+    message.setSubject(getSubjectOf(event));
+    message.setText(getContentOf(event));
 
     mailSender.send(message);
   }
 
-  private String formatSubject(BalanceChanged event) {
-    return formatSubject(
-      event.partner().fullName(),
-      event.delta()
-    );
-  }
+  private String getSubjectOf(BalanceChanged event) {
+    String partner = event.partner().fullName();
+    BigDecimal delta = event.delta();
+    BigDecimal amount = delta.abs();
 
-  private String formatSubject(
-    String partnerName,
-    BigDecimal delta
-  ) {
     String status = "Transaction completed";
     String template = delta.compareTo(BigDecimal.ZERO) > 0
     ? "received %s$ from %s"
     : "sent %s$ to %s";
     
     String delimiter = ": ";
-    return status + delimiter + template.formatted(delta, partnerName);
+    return status + delimiter + template.formatted(amount, partner);
   }
 
-  private String formatText(BalanceChanged event) {
-    return formatText(
-      event.client().fullName(),
-      event.partner().fullName(),
-      event.delta(),
-      Date.from(event.timestamp())
-    );
-  }
+  private String getContentOf(BalanceChanged event) {
+    String client = event.client().fullName();
+    String partner = event.partner().fullName();
+    BigDecimal delta = event.delta();
+    Date timestamp = Date.from(event.timestamp());
 
-  private String formatText(
-    String clientName,
-    String partnerName,
-    BigDecimal delta,
-    Date date
-  ) {
     return """
       Dear %s,
 
@@ -77,6 +62,6 @@ public class BalanceChangedMailSender {
 
       Best regards,
       Epayment
-    """.formatted(clientName, partnerName, delta, date);
+    """.formatted(client, partner, delta, timestamp);
   }
 }
