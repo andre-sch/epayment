@@ -1,7 +1,9 @@
 package com.epayment.core.adapters;
 
-import java.util.Date;
+import java.util.*;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+
 import com.epayment.core.domain.BalanceChanged;
 import com.epayment.core.application.interfaces.JsonConverter;
 
@@ -47,7 +49,10 @@ public class BalanceChangedMailSender {
     String client = event.client().fullName();
     String partner = event.partner().fullName();
     BigDecimal delta = event.delta();
-    Date timestamp = Date.from(event.timestamp());
+    
+    var dateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss 'GMT'");
+    dateFormatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+    String timestamp = dateFormatter.format(Date.from(event.timestamp()));
 
     return """
       Dear %s,
