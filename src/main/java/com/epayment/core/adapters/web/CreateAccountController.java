@@ -1,8 +1,7 @@
 package com.epayment.core.adapters.web;
 
 import java.math.BigDecimal;
-import com.epayment.core.application.services.createUser.*;
-import com.epayment.core.application.services.createWallet.CreateWalletService;
+import com.epayment.core.application.services.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -1,7 +1,7 @@
 package com.epayment.core.utils;
 
 import com.epayment.core.domain.User;
-import com.epayment.core.application.services.createUser.CreateUserService;
+import com.epayment.core.application.services.*;
 
 public class DummyUserFactory extends DummyFactory<User> {
   public User build() {

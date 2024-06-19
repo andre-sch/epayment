@@ -1,4 +1,4 @@
-package com.epayment.core.application.services.createWallet;
+package com.epayment.core.application.services;
 
 import com.epayment.core.domain.Wallet;
 import com.epayment.core.application.repositories.UserRepository;

@@ -3,7 +3,7 @@ package com.epayment.core.integration;
 import java.math.BigDecimal;
 import com.epayment.core.domain.*;
 import com.epayment.core.application.repositories.*;
-import com.epayment.core.application.services.transferResource.*;
+import com.epayment.core.application.services.*;
 import com.epayment.core.utils.DummyWalletFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;

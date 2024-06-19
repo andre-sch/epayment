@@ -2,7 +2,7 @@ package com.epayment.core.adapters.web;
 
 import java.time.Instant;
 import java.math.BigDecimal;
-import com.epayment.core.application.services.transferResource.*;
+import com.epayment.core.application.services.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

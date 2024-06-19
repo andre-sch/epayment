@@ -1,4 +1,4 @@
-package com.epayment.core.application.services.transferResource;
+package com.epayment.core.application.services;
 
 import java.math.BigDecimal;
 import com.epayment.core.domain.BalanceChanged;
