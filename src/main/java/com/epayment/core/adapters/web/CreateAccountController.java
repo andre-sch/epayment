@@ -1,10 +1,8 @@
-package com.epayment.core.adapters;
-
-import com.epayment.core.application.services.createUser.*;
-import com.epayment.core.application.services.createWallet.CreateWalletService;
+package com.epayment.core.adapters.web;
 
 import java.math.BigDecimal;
-
+import com.epayment.core.application.services.createUser.*;
+import com.epayment.core.application.services.createWallet.CreateWalletService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,6 +21,7 @@ public class CreateAccountController {
   @PostMapping("/account")
   @ResponseBody
   public WalletView handle(@RequestBody UserCreationRequest request) {
+    // todo: merge concepts into "Account"?
     var createdUser = this.createUserService.execute(request);
     var createdWallet = this.createWalletService.execute(createdUser.getId());
 
