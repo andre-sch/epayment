@@ -17,7 +17,7 @@ public class TransferResourceController {
 
   @PostMapping("/transfer")
   @ResponseBody
-  public TransferenceView handle(@RequestBody ResourceTransferenceRequest request) {
+  public TransferenceView handle(@RequestBody TransferResourceService.Request request) {
     var transaction = this.transferResourceService.execute(request);
     return new TransferenceView(
       transaction.getSender().getOwner().getEmail(),

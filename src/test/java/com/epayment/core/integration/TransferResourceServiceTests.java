@@ -43,7 +43,7 @@ public class TransferResourceServiceTests {
     var receiver = this.insertedWallet();
     var sender = this.insertedWallet();
 
-    var request = new ResourceTransferenceRequest(sender.getId(), receiver.getId(), amount);
+    var request = new TransferResourceService.Request(sender.getId(), receiver.getId(), amount);
     var transaction = this.transferResourceService.execute(request);
 
     assertThat(transaction.getAmount()).isEqualTo(amount);

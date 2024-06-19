@@ -19,7 +19,7 @@ public class CreateUserService {
     this.passwordEncoder = passwordEncoder;
   }
 
-  public User execute(UserCreationRequest request) {
+  public User execute(CreateUserService.Request request) {
     boolean emailAlreadyInUse = this.userRepository.findByEmail(request.email).isPresent();
     if (emailAlreadyInUse) throw new RuntimeException("email already in use");
 
@@ -39,4 +39,11 @@ public class CreateUserService {
 
     return user;
   }
+
+  public static record Request(
+    String document,
+    String fullName,
+    String email,
+    String password
+  ) {}
 }

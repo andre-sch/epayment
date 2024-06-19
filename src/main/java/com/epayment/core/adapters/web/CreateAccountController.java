@@ -20,7 +20,7 @@ public class CreateAccountController {
 
   @PostMapping("/account")
   @ResponseBody
-  public WalletView handle(@RequestBody UserCreationRequest request) {
+  public WalletView handle(@RequestBody CreateUserService.Request request) {
     var createdUser = this.createUserService.execute(request);
     var createdWallet = this.createWalletService.execute(createdUser.getId());
 

@@ -1,5 +1,6 @@
 package com.epayment.core.application.services.transferResource;
 
+import java.math.BigDecimal;
 import com.epayment.core.domain.BalanceChanged;
 import com.epayment.core.domain.EventDispatcher;
 import com.epayment.core.domain.Transaction;
@@ -25,7 +26,7 @@ public class TransferResourceService {
   }
 
   @Transactional
-  public Transaction execute(ResourceTransferenceRequest request) {
+  public Transaction execute(TransferResourceService.Request request) {
     var senderSearch = this.walletRepository.findById(request.senderId);
     var receiverSearch = this.walletRepository.findById(request.receiverId);
 
@@ -51,4 +52,10 @@ public class TransferResourceService {
 
     return transaction;
   }
+
+  public static record Request(
+    int senderId,
+    int receiverId,
+    BigDecimal amount
+  ) {}
 }

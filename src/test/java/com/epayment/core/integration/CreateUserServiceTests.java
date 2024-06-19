@@ -21,7 +21,7 @@ public class CreateUserServiceTests {
 
     var user = this.createUserService.execute(request);
 
-    assertThat(user.getEmail()).isEqualTo(request.email);
-    assertThat(user.getPassword()).isNotEqualTo(request.password);
+    assertThat(user.getEmail()).isEqualTo(request.email());
+    assertThat(user.getPassword()).isNotEqualTo(request.password());
   }
 }

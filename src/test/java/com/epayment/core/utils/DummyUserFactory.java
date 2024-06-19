@@ -1,7 +1,7 @@
 package com.epayment.core.utils;
 
 import com.epayment.core.domain.User;
-import com.epayment.core.application.services.createUser.UserCreationRequest;
+import com.epayment.core.application.services.createUser.CreateUserService;
 
 public class DummyUserFactory extends DummyFactory<User> {
   public User build() {
@@ -15,9 +15,9 @@ public class DummyUserFactory extends DummyFactory<User> {
     return user;
   }
 
-  public UserCreationRequest buildRequest() {
+  public CreateUserService.Request buildRequest() {
     var user = build();
-    return new UserCreationRequest(
+    return new CreateUserService.Request(
       user.getDocument(),
       user.getFullName(),
       user.getEmail(),
