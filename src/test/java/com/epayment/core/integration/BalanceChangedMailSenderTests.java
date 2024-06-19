@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.math.BigDecimal;
 import com.epayment.core.domain.BalanceChanged;
 import com.epayment.core.application.interfaces.JsonConverter;
-import com.epayment.core.adapters.BalanceChangedMailSender;
+import com.epayment.core.adapters.kafka.BalanceChangedMailSender;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;

@@ -1,4 +1,4 @@
-package com.epayment.core.adapters;
+package com.epayment.core.adapters.kafka;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;

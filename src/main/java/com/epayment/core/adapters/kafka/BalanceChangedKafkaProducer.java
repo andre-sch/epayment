@@ -1,4 +1,4 @@
-package com.epayment.core.adapters;
+package com.epayment.core.adapters.kafka;
 
 import com.epayment.core.domain.BalanceChanged;
 import com.epayment.core.application.interfaces.JsonConverter;

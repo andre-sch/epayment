@@ -1,4 +1,4 @@
-package com.epayment.core.adapters;
+package com.epayment.core.adapters.kafka;
 
 import java.util.function.Consumer;
 

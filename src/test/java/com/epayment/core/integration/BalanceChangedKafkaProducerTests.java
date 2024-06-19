@@ -2,7 +2,7 @@ package com.epayment.core.integration;
 
 import java.time.Instant;
 import java.math.BigDecimal;
-import com.epayment.core.adapters.KafkaProducer;
+import com.epayment.core.adapters.kafka.KafkaProducer;
 import com.epayment.core.application.interfaces.JsonConverter;
 import com.epayment.core.domain.BalanceChanged;
 
