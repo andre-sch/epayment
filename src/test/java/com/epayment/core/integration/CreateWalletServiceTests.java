@@ -14,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 public class CreateWalletServiceTests {
+  private final BigDecimal initialCredit = BigDecimal.valueOf(10000L, 2);
   private final DummyUserFactory userFactory = new DummyUserFactory();
 
   @Autowired private UserRepository userRepository;
@@ -34,6 +35,6 @@ public class CreateWalletServiceTests {
     var wallet = this.createWalletService.execute(owner.getId());
 
     assertThat(wallet.getOwner()).isEqualTo(owner);
-    assertThat(wallet.getBalance()).isEqualTo(BigDecimal.ZERO);
+    assertThat(wallet.getBalance()).isEqualTo(initialCredit);
   }
 }
