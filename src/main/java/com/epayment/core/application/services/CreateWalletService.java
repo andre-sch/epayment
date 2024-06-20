@@ -22,13 +22,13 @@ public class CreateWalletService {
   }
 
   public Wallet execute(int ownerId) {
-    var ownerSearch = this.userRepository.findById(ownerId);
+    var ownerQuery = this.userRepository.findById(ownerId);
 
-    if (ownerSearch.isEmpty()) {
+    if (ownerQuery.isEmpty()) {
       throw new RuntimeException("owner does not exist");
     }
 
-    var owner = ownerSearch.get();
+    var owner = ownerQuery.get();
     var wallet = new Wallet();
 
     wallet.setOwner(owner);

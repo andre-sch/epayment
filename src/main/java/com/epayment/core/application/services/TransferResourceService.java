@@ -27,14 +27,14 @@ public class TransferResourceService {
 
   @Transactional
   public Transaction execute(TransferResourceService.Request request) {
-    var senderSearch = this.walletRepository.findById(request.senderId);
-    var receiverSearch = this.walletRepository.findById(request.receiverId);
+    var senderQuery = this.walletRepository.findById(request.senderId);
+    var receiverQuery = this.walletRepository.findById(request.receiverId);
 
-    if (senderSearch.isEmpty()) throw new RuntimeException("sender does not exist");
-    if (receiverSearch.isEmpty()) throw new RuntimeException("receiver does not exist");
+    if (senderQuery.isEmpty()) throw new RuntimeException("sender does not exist");
+    if (receiverQuery.isEmpty()) throw new RuntimeException("receiver does not exist");
     
-    var sender = senderSearch.get();
-    var receiver = receiverSearch.get();
+    var sender = senderQuery.get();
+    var receiver = receiverQuery.get();
 
     var transaction = new Transaction();
 
