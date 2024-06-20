@@ -3,6 +3,7 @@ package com.epayment.core.adapters.web;
 import java.math.BigDecimal;
 import com.epayment.core.application.services.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 
 @RestController
 public class CreateAccountController {
@@ -18,6 +19,7 @@ public class CreateAccountController {
   }
 
   @PostMapping("/account")
+  @ResponseStatus(code = HttpStatus.CREATED)
   @ResponseBody
   public WalletView handle(@RequestBody CreateUserService.Request request) {
     var createdUser = this.createUserService.execute(request);
