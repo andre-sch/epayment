@@ -16,7 +16,9 @@ public class DeleteAccountController {
 
   @DeleteMapping("/account")
   @ResponseStatus(code = HttpStatus.NO_CONTENT)
-  public void handle(@RequestBody String email) {
-    this.deleteAccountService.execute(email);
+  public void handle(@RequestBody Request request) {
+    this.deleteAccountService.execute(request.email);
   }
+
+  public static record Request(String email) {}
 }
