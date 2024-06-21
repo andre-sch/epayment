@@ -9,5 +9,9 @@ public record BalanceChanged(
   Endpoint partner,
   Instant timestamp
 ) {
-  public static record Endpoint(String email, String fullName) {}
+  public static record Endpoint(String email, String fullName) {
+    public static Endpoint of(Account account) {
+      return new Endpoint(account.getEmail(), account.getFullName());
+    }
+  }
 }

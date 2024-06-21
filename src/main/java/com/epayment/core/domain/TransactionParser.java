@@ -5,6 +5,8 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.epayment.core.domain.BalanceChanged.Endpoint;
+
 public class TransactionParser {
   private Transaction transaction;
 
@@ -18,8 +20,8 @@ public class TransactionParser {
 
   private BalanceChanged parseSenderBalanceChanges() {
     return buildBalanceChanged(
-      buildEndpointOf(transaction.getSender()),
-      buildEndpointOf(transaction.getReceiver()),
+      Endpoint.of(transaction.getSender()),
+      Endpoint.of(transaction.getReceiver()),
       transaction.getAmount().negate(),
       transaction.getCompletedAt()
     );
@@ -27,26 +29,19 @@ public class TransactionParser {
 
   private BalanceChanged parseReceiverBalanceChanges() {
     return buildBalanceChanged(
-      buildEndpointOf(transaction.getReceiver()),
-      buildEndpointOf(transaction.getSender()),
+      Endpoint.of(transaction.getReceiver()),
+      Endpoint.of(transaction.getSender()),
       transaction.getAmount(),
       transaction.getCompletedAt()
     );
   }
 
   private BalanceChanged buildBalanceChanged(
-    BalanceChanged.Endpoint client,
-    BalanceChanged.Endpoint partner,
+    Endpoint client,
+    Endpoint partner,
     BigDecimal delta,
     Instant timestamp
   ) {
     return new BalanceChanged(delta, client, partner, timestamp);
-  }
-
-  public BalanceChanged.Endpoint buildEndpointOf(Account account) {
-    return new BalanceChanged.Endpoint(
-      account.getEmail(),
-      account.getFullName()
-    );
   }
 }

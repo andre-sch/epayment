@@ -1,8 +1,10 @@
 package com.epayment.core.unit;
 
 import java.math.BigDecimal;
-import com.epayment.core.domain.*;
 import com.epayment.core.utils.*;
+import com.epayment.core.domain.*;
+import static com.epayment.core.domain.BalanceChanged.*;
+
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,8 +31,8 @@ public class TransactionParserTests {
     assertThat(balanceChanges).contains(
       new BalanceChanged(
         amount.negate(),
-        parser.buildEndpointOf(sender),
-        parser.buildEndpointOf(receiver),
+        Endpoint.of(sender),
+        Endpoint.of(receiver),
         transaction.getCompletedAt()
       )
     );
@@ -38,8 +40,8 @@ public class TransactionParserTests {
     assertThat(balanceChanges).contains(
       new BalanceChanged(
         amount,
-        parser.buildEndpointOf(receiver),
-        parser.buildEndpointOf(sender),
+        Endpoint.of(receiver),
+        Endpoint.of(sender),
         transaction.getCompletedAt()
       )
     );
