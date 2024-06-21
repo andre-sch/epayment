@@ -27,8 +27,8 @@ public class TransferResourceService {
 
   @Transactional
   public Transaction execute(TransferResourceService.Request request) {
-    var senderQuery = this.accountRepository.findById(request.senderId); // todo: replace by email
-    var receiverQuery = this.accountRepository.findById(request.receiverId);
+    var senderQuery = this.accountRepository.findByEmail(request.senderEmail);
+    var receiverQuery = this.accountRepository.findByEmail(request.receiverEmail);
 
     if (senderQuery.isEmpty()) throw new RuntimeException("sender does not exist");
     if (receiverQuery.isEmpty()) throw new RuntimeException("receiver does not exist");
@@ -54,8 +54,8 @@ public class TransferResourceService {
   }
 
   public static record Request(
-    int senderId,
-    int receiverId,
+    String senderEmail,
+    String receiverEmail,
     BigDecimal amount
   ) {}
 }

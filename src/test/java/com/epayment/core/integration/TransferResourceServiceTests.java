@@ -41,7 +41,7 @@ public class TransferResourceServiceTests {
     var receiver = this.insertedAccount();
     var sender = this.insertedAccount();
 
-    var request = new TransferResourceService.Request(sender.getId(), receiver.getId(), amount);
+    var request = new TransferResourceService.Request(sender.getEmail(), receiver.getEmail(), amount);
     var transaction = this.transferResourceService.execute(request);
 
     assertThat(transaction.getAmount()).isEqualTo(amount);
