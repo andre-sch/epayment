@@ -6,14 +6,18 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "wallets")
-public class Wallet {
+@Table(name = "accounts")
+@EqualsAndHashCode
+public class Account {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private @Getter int id;
+  
   private @Getter BigDecimal balance = BigDecimal.ZERO;
-
-  @ManyToOne
-  private @Getter @Setter User owner;
+  
+  @Column(unique = true)
+  private @Getter @Setter String email;
+  private @Getter @Setter String password;
+  private @Getter @Setter String fullName;
 
   public void credit(BigDecimal value) {
     this.balance = this.balance.add(value);

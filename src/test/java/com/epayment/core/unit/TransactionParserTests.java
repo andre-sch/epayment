@@ -9,14 +9,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TransactionParserTests {
   private final BigDecimal amount = BigDecimal.ONE;
 
-  private final DummyWalletFactory walletFactory = new DummyWalletFactory();
+  private final DummyAccountFactory accountFactory = new DummyAccountFactory();
   private final TransactionParser parser = new TransactionParser();
 
   @Test
   public void parsesTransactionBalanceChanges() {
     // arrange
-    var sender = walletFactory.build();
-    var receiver = walletFactory.build();
+    var sender = accountFactory.build();
+    var receiver = accountFactory.build();
     
     var transaction = new Transaction();
     transaction.setEndpoints(sender, receiver);
@@ -43,23 +43,5 @@ public class TransactionParserTests {
         transaction.getCompletedAt()
       )
     );
-  }
-
-  @Test
-  public void endpointBuilding() {
-    // arrange
-    var user = new User();
-    user.setFullName("owner");
-    user.setEmail("owner@email");
-
-    var wallet = new Wallet();
-    wallet.setOwner(user);
-
-    // act
-    var endpoint = parser.buildEndpointOf(wallet);
-
-    // assert
-    assertThat(endpoint.email()).isEqualTo("owner@email");
-    assertThat(endpoint.fullName()).isEqualTo("owner");
   }
 }

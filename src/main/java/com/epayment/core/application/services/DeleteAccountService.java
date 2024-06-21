@@ -1,35 +1,27 @@
 package com.epayment.core.application.services;
 
-import com.epayment.core.application.repositories.UserRepository;
-import com.epayment.core.application.repositories.WalletRepository;
+import com.epayment.core.application.repositories.AccountRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DeleteAccountService {
-  private UserRepository userRepository;
-  private WalletRepository walletRepository;
+  private AccountRepository accountRepository;
   
   public DeleteAccountService(
-    UserRepository userRepository,
-    WalletRepository walletRepository
+    AccountRepository accountRepository
   ) {
-    this.userRepository = userRepository;
-    this.walletRepository = walletRepository;
+    this.accountRepository = accountRepository;
   }
 
   public void execute(String email) {
-    var userQuery = this.userRepository.findByEmail(email);
+    var accountQuery = this.accountRepository.findByEmail(email);
 
-    if (userQuery.isEmpty()) {
-      throw new RuntimeException("user does not exist");
+    if (accountQuery.isEmpty()) {
+      throw new RuntimeException("account does not exist");
     }
 
-    var user = userQuery.get();
-
-    this.walletRepository
-      .findByOwner(user)
-      .forEach(this.walletRepository::delete);
-
-    this.userRepository.delete(user);
+    var account = accountQuery.get();
+    
+    this.accountRepository.delete(account);
   }
 }

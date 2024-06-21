@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import com.epayment.core.domain.*;
 import com.epayment.core.application.repositories.*;
 import com.epayment.core.application.services.*;
-import com.epayment.core.utils.DummyWalletFactory;
+import com.epayment.core.utils.DummyAccountFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,26 +22,24 @@ import static org.mockito.Mockito.*;
 public class TransferResourceServiceTests {
   private final BigDecimal zero = BigDecimal.valueOf(0L, 2);
   private final BigDecimal amount = BigDecimal.valueOf(1L, 2);
-  private final DummyWalletFactory walletFactory = new DummyWalletFactory();
+  private final DummyAccountFactory accountFactory = new DummyAccountFactory();
   private final TransactionParser transactionParser = new TransactionParser();
 
   @MockBean private EventDispatcher<BalanceChanged> eventDispatcher;
-  @Autowired private UserRepository userRepository;
-  @Autowired private WalletRepository walletRepository;
+  @Autowired private AccountRepository accountRepository;
   @Autowired private TransactionRepository transactionRepository;
   @Autowired private TransferResourceService transferResourceService;
 
   @BeforeEach
   public void resetRepositories() {
     this.transactionRepository.deleteAll();
-    this.walletRepository.deleteAll();
-    this.userRepository.deleteAll();
+    this.accountRepository.deleteAll();
   }
 
   @Test
   public void resourceTransferenceSucceeds() {
-    var receiver = this.insertedWallet();
-    var sender = this.insertedWallet();
+    var receiver = this.insertedAccount();
+    var sender = this.insertedAccount();
 
     var request = new TransferResourceService.Request(sender.getId(), receiver.getId(), amount);
     var transaction = this.transferResourceService.execute(request);
@@ -56,12 +54,9 @@ public class TransferResourceServiceTests {
     this.transactionRepository.deleteAll();
   }
 
-  private Wallet insertedWallet() {
-    var wallet = walletFactory.build();
-
-    this.userRepository.save(wallet.getOwner());
-    this.walletRepository.save(wallet);
-
-    return wallet;
+  private Account insertedAccount() {
+    var account = accountFactory.build();
+    this.accountRepository.save(account);
+    return account;
   }
 }

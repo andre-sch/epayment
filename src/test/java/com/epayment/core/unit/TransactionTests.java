@@ -12,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TransactionTests {
   private final BigDecimal zero = BigDecimal.valueOf(0L, 2);
   private final BigDecimal amount = BigDecimal.valueOf(1L, 2);
-  private final DummyWalletFactory walletFactory = new DummyWalletFactory();
+  private final DummyAccountFactory accountFactory = new DummyAccountFactory();
 
   @Test
   public void transactionSucceeds() {
-    var receiver = walletFactory.build();
-    var sender = walletFactory.build();
+    var receiver = accountFactory.build();
+    var sender = accountFactory.build();
 
     var transaction = new Transaction();
     transaction.setEndpoints(sender, receiver);
@@ -31,11 +31,11 @@ public class TransactionTests {
 
   @Test
   public void selfTransactionFails() {
-    var wallet = new Wallet();
+    var account = new Account();
 
     assertThrows(SelfTransferException.class, () -> {
       var transaction = new Transaction();
-      transaction.setEndpoints(wallet, wallet);
+      transaction.setEndpoints(account, account);
     });
   }
   

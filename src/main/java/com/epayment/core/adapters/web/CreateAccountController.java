@@ -7,30 +7,26 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 public class CreateAccountController {
-  private CreateUserService createUserService;
-  private CreateWalletService createWalletService;
+  private CreateAccountService createAccountService;
 
   public CreateAccountController(
-    CreateUserService createUserService,
-    CreateWalletService createWalletService
+    CreateAccountService createAccountService
   ) {
-    this.createUserService = createUserService;
-    this.createWalletService = createWalletService;
+    this.createAccountService = createAccountService;
   }
 
   @PostMapping("/account")
   @ResponseStatus(code = HttpStatus.CREATED)
   @ResponseBody
-  public WalletView handle(@RequestBody CreateUserService.Request request) {
-    var createdUser = this.createUserService.execute(request);
-    var createdWallet = this.createWalletService.execute(createdUser.getId());
+  public AccountView handle(@RequestBody CreateAccountService.Request request) {
+    var createdAccount = this.createAccountService.execute(request);
 
-    return new WalletView(
-      createdUser.getFullName(),
-      createdUser.getEmail(),
-      createdWallet.getBalance()
+    return new AccountView(
+      createdAccount.getFullName(),
+      createdAccount.getEmail(),
+      createdAccount.getBalance()
     );
   }
 }
 
-record WalletView(String fullname, String email, BigDecimal balance) {}
+record AccountView(String fullname, String email, BigDecimal balance) {}

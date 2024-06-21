@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import com.epayment.core.domain.BalanceChanged;
 import com.epayment.core.domain.EventDispatcher;
 import com.epayment.core.domain.Transaction;
-import com.epayment.core.application.repositories.WalletRepository;
+import com.epayment.core.application.repositories.AccountRepository;
 import com.epayment.core.application.repositories.TransactionRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -12,23 +12,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransferResourceService {
   private TransactionRepository transactionRepository;
-  private WalletRepository walletRepository;
+  private AccountRepository accountRepository;
   private EventDispatcher<BalanceChanged> eventDispatcher;
 
   public TransferResourceService(
     TransactionRepository transactionRepository,
-    WalletRepository walletRepository,
+    AccountRepository accountRepository,
     EventDispatcher<BalanceChanged> eventDispatcher
   ) {
     this.transactionRepository = transactionRepository;
-    this.walletRepository = walletRepository;
+    this.accountRepository = accountRepository;
     this.eventDispatcher = eventDispatcher;
   }
 
   @Transactional
   public Transaction execute(TransferResourceService.Request request) {
-    var senderQuery = this.walletRepository.findById(request.senderId);
-    var receiverQuery = this.walletRepository.findById(request.receiverId);
+    var senderQuery = this.accountRepository.findById(request.senderId); // todo: replace by email
+    var receiverQuery = this.accountRepository.findById(request.receiverId);
 
     if (senderQuery.isEmpty()) throw new RuntimeException("sender does not exist");
     if (receiverQuery.isEmpty()) throw new RuntimeException("receiver does not exist");
@@ -42,8 +42,8 @@ public class TransferResourceService {
     transaction.setAmount(request.amount);
     transaction.execute();
 
-    this.walletRepository.save(sender);
-    this.walletRepository.save(receiver);
+    this.accountRepository.save(sender);
+    this.accountRepository.save(receiver);
     this.transactionRepository.save(transaction);
     
     transaction

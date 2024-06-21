@@ -20,8 +20,8 @@ public class TransferResourceController {
   public TransferenceView handle(@RequestBody TransferResourceService.Request request) {
     var transaction = this.transferResourceService.execute(request);
     return new TransferenceView(
-      transaction.getSender().getOwner().getEmail(),
-      transaction.getReceiver().getOwner().getEmail(),
+      transaction.getSender().getEmail(),
+      transaction.getReceiver().getEmail(),
       transaction.getAmount(),
       transaction.getCompletedAt()
     );

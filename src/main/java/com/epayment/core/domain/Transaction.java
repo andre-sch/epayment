@@ -14,16 +14,13 @@ public class Transaction {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private @Getter int id;
   
-  @ManyToOne
-  private @Getter Wallet sender;
-  
-  @ManyToOne
-  private @Getter Wallet receiver;
+  private @ManyToOne @Getter Account sender;
+  private @ManyToOne @Getter Account receiver;
   
   private @Getter BigDecimal amount;
   private @Getter Instant completedAt;
 
-  @Transient TransactionParser transactionParser = new TransactionParser();
+  @Transient private TransactionParser transactionParser = new TransactionParser();
   @Transient @Getter private List<BalanceChanged> events = new LinkedList<>();
 
   public void execute() {
@@ -35,7 +32,7 @@ public class Transaction {
       .forEach(this.events::add);
   }
 
-  public void setEndpoints(Wallet sender, Wallet receiver) {
+  public void setEndpoints(Account sender, Account receiver) {
     if (Objects.equals(sender, receiver)) {
       throw new SelfTransferException("sender cannot be receiver");
     }

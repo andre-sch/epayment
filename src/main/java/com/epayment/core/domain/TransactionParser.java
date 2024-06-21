@@ -43,10 +43,10 @@ public class TransactionParser {
     return new BalanceChanged(delta, client, partner, timestamp);
   }
 
-  public BalanceChanged.Endpoint buildEndpointOf(Wallet wallet) {
+  public BalanceChanged.Endpoint buildEndpointOf(Account account) {
     return new BalanceChanged.Endpoint(
-      wallet.getOwner().getEmail(),
-      wallet.getOwner().getFullName()
+      account.getEmail(),
+      account.getFullName()
     );
   }
 }
