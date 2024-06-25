@@ -3,29 +3,35 @@ package com.epayment.core.adapters.web;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
+import jakarta.validation.constraints.*;
 import com.epayment.core.domain.Account;
 import com.epayment.core.domain.Transaction;
 import com.epayment.core.domain.exceptions.OperationalException;
 import com.epayment.core.application.repositories.TransactionRepository;
 import com.epayment.core.application.repositories.AccountRepository;
+import com.epayment.core.application.services.ValidationService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ListAccountTransfers {
   private AccountRepository accountRepository;
   private TransactionRepository transactionRepository;
-
+  private ValidationService validationService;
+  
   public ListAccountTransfers(
     AccountRepository accountRepository,
-    TransactionRepository transactionRepository
+    TransactionRepository transactionRepository,
+    ValidationService validationService
   ) {
     this.accountRepository = accountRepository;
     this.transactionRepository = transactionRepository;
+    this.validationService = validationService;
   }
 
   @GetMapping("/account/transfers")
   @ResponseBody
   public List<TransactionView> handle(@RequestBody Request request) {
+    this.validationService.execute(request);
     var accountQuery = this.accountRepository.findByEmail(request.email);
 
     if (accountQuery.isEmpty()) {
@@ -39,7 +45,7 @@ public class ListAccountTransfers {
       .stream().map(TransactionView::of).toList();
   }
 
-  public static record Request(String email) {}
+  public static record Request(@NotNull @Email String email) {}
 }
 
 record TransactionView(

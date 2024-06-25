@@ -1,6 +1,7 @@
 package com.epayment.core.application.services;
 
 import java.math.BigDecimal;
+import jakarta.validation.constraints.*;
 import com.epayment.core.domain.Account;
 import com.epayment.core.domain.exceptions.OperationalException;
 import com.epayment.core.application.repositories.AccountRepository;
@@ -43,8 +44,8 @@ public class CreateAccountService {
   }
 
   public static record Request(
-    String fullName,
-    String email,
-    String password
+    @NotBlank String fullName,
+    @NotNull @Email String email,
+    @NotBlank String password
   ) {}
 }

@@ -1,13 +1,14 @@
 package com.epayment.core.application.services;
 
 import java.math.BigDecimal;
+import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.*;
 import com.epayment.core.domain.BalanceChanged;
 import com.epayment.core.domain.EventDispatcher;
 import com.epayment.core.domain.Transaction;
 import com.epayment.core.domain.exceptions.OperationalException;
 import com.epayment.core.application.repositories.AccountRepository;
 import com.epayment.core.application.repositories.TransactionRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -55,8 +56,8 @@ public class TransferResourceService {
   }
 
   public static record Request(
-    String senderEmail,
-    String receiverEmail,
-    BigDecimal amount
+    @NotNull @Email String senderEmail,
+    @NotNull @Email String receiverEmail,
+    @NotNull BigDecimal amount
   ) {}
 }

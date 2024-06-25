@@ -1,23 +1,30 @@
 package com.epayment.core.adapters.web;
 
 import java.math.BigDecimal;
-import com.epayment.core.domain.exceptions.OperationalException;
-import com.epayment.core.application.repositories.AccountRepository;
+import jakarta.validation.constraints.*;
 import com.epayment.core.domain.Account;
-
+import com.epayment.core.domain.exceptions.OperationalException;
+import com.epayment.core.application.services.ValidationService;
+import com.epayment.core.application.repositories.AccountRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ListAccountDetails {
   private AccountRepository accountRepository;
+  private ValidationService validationService;
 
-  public ListAccountDetails(AccountRepository accountRepository) {
+  public ListAccountDetails(
+    AccountRepository accountRepository,
+    ValidationService validationService
+  ) {
     this.accountRepository = accountRepository;
+    this.validationService = validationService;
   }
 
   @GetMapping("/account")
   @ResponseBody
   public AccountDetails handle(@RequestBody Request request) {
+    this.validationService.execute(request);
     var accountQuery = accountRepository.findByEmail(request.email);
 
     if (accountQuery.isEmpty()) {
@@ -28,7 +35,7 @@ public class ListAccountDetails {
     return AccountDetails.of(account);
   }
 
-  public static record Request(String email) {}
+  public static record Request(@NotNull @Email String email) {}
 }
 
 record AccountDetails(
