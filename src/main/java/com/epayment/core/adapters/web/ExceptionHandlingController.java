@@ -13,7 +13,9 @@ public class ExceptionHandlingController {
 
   @ExceptionHandler({ Exception.class })
   public ResponseEntity<Feedback> handleException(Exception exception) {
-    return new ResponseEntity<>(Feedback.from(exception), HttpStatus.INTERNAL_SERVER_ERROR);
+    exception.printStackTrace();
+    var genericFeedback = new Feedback("internal server error");
+    return new ResponseEntity<>(genericFeedback, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }
 
