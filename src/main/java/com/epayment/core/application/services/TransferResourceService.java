@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import com.epayment.core.domain.BalanceChanged;
 import com.epayment.core.domain.EventDispatcher;
 import com.epayment.core.domain.Transaction;
+import com.epayment.core.domain.exceptions.OperationalException;
 import com.epayment.core.application.repositories.AccountRepository;
 import com.epayment.core.application.repositories.TransactionRepository;
 import jakarta.transaction.Transactional;
@@ -30,8 +31,8 @@ public class TransferResourceService {
     var senderQuery = this.accountRepository.findByEmail(request.senderEmail);
     var receiverQuery = this.accountRepository.findByEmail(request.receiverEmail);
 
-    if (senderQuery.isEmpty()) throw new RuntimeException("sender does not exist");
-    if (receiverQuery.isEmpty()) throw new RuntimeException("receiver does not exist");
+    if (senderQuery.isEmpty()) throw new OperationalException("sender does not exist");
+    if (receiverQuery.isEmpty()) throw new OperationalException("receiver does not exist");
     
     var sender = senderQuery.get();
     var receiver = receiverQuery.get();

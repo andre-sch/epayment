@@ -1,6 +1,7 @@
 package com.epayment.core.adapters.web;
 
 import java.math.BigDecimal;
+import com.epayment.core.domain.exceptions.OperationalException;
 import com.epayment.core.application.repositories.AccountRepository;
 import com.epayment.core.domain.Account;
 
@@ -20,7 +21,7 @@ public class ListAccountDetails {
     var accountQuery = accountRepository.findByEmail(request.email);
 
     if (accountQuery.isEmpty()) {
-      throw new RuntimeException("account does not exist");
+      throw new OperationalException("account does not exist");
     }
 
     var account = accountQuery.get();

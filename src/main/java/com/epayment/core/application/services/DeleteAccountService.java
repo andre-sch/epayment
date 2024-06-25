@@ -1,5 +1,6 @@
 package com.epayment.core.application.services;
 
+import com.epayment.core.domain.exceptions.OperationalException;
 import com.epayment.core.application.repositories.AccountRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class DeleteAccountService {
     var accountQuery = this.accountRepository.findByEmail(email);
 
     if (accountQuery.isEmpty()) {
-      throw new RuntimeException("account does not exist");
+      throw new OperationalException("account does not exist");
     }
 
     var account = accountQuery.get();

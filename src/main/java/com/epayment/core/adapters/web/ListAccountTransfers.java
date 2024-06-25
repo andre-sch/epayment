@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.List;
 import com.epayment.core.domain.Account;
 import com.epayment.core.domain.Transaction;
+import com.epayment.core.domain.exceptions.OperationalException;
 import com.epayment.core.application.repositories.TransactionRepository;
 import com.epayment.core.application.repositories.AccountRepository;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class ListAccountTransfers {
     var accountQuery = this.accountRepository.findByEmail(request.email);
 
     if (accountQuery.isEmpty()) {
-      throw new RuntimeException("account does not exist");
+      throw new OperationalException("account does not exist");
     }
 
     var account = accountQuery.get();

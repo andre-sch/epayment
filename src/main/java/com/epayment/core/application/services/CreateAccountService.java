@@ -2,6 +2,7 @@ package com.epayment.core.application.services;
 
 import java.math.BigDecimal;
 import com.epayment.core.domain.Account;
+import com.epayment.core.domain.exceptions.OperationalException;
 import com.epayment.core.application.repositories.AccountRepository;
 
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class CreateAccountService {
 
   public Account execute(CreateAccountService.Request request) {
     boolean emailAlreadyInUse = this.accountRepository.findByEmail(request.email).isPresent();
-    if (emailAlreadyInUse) throw new RuntimeException("email already in use");
+    if (emailAlreadyInUse) throw new OperationalException("email already in use");
 
     var account = new Account();
 
