@@ -11,14 +11,13 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.junit.jupiter.api.*;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @ActiveProfiles("test")
 public class BalanceChangedMailSenderTests {
-  @MockBean private JavaMailSender javaMailSender;
+  @Autowired private JavaMailSender javaMailSender;
   @Autowired private BalanceChangedMailSender eventMailSender;
   @Autowired private JsonConverter json; 
 
