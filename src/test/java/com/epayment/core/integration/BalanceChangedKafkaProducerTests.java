@@ -7,18 +7,16 @@ import com.epayment.core.application.interfaces.JsonConverter;
 import com.epayment.core.domain.BalanceChanged;
 
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 public class BalanceChangedKafkaProducerTests {
-  @MockBean private KafkaTemplate<String, String> kafkaTemplate;
+  @Autowired private KafkaTemplate<String, String> kafkaTemplate;
   @Autowired private KafkaProducer<BalanceChanged> kafkaProducer;
   @Autowired private JsonConverter json;
 
