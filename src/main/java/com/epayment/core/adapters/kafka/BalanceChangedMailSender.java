@@ -2,7 +2,9 @@ package com.epayment.core.adapters.kafka;
 
 import java.util.*;
 import java.math.BigDecimal;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 
 import com.epayment.core.domain.BalanceChanged;
 import com.epayment.core.application.interfaces.JsonConverter;
@@ -10,64 +12,62 @@ import com.epayment.core.application.interfaces.JsonConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.SimpleMailMessage;
 
 @Component
-public class BalanceChangedMailSender {
+public class BalanceChangedMailSender extends MailSender<BalanceChanged> {
   @Autowired private JsonConverter json;
-  @Autowired private JavaMailSender mailSender;
-  
-  @KafkaListener(topics = "balances", groupId = "mail")
-  public void sendMail(String serializedEvent) {
-    var event = json.deserialize(serializedEvent, BalanceChanged.class);
 
-    var message = new SimpleMailMessage();
-
-    message.setTo(event.client().email());
-    message.setSubject(getSubjectOf(event));
-    message.setText(getContentOf(event));
-
-    mailSender.send(message);
+  public BalanceChangedMailSender() {
+    super(
+      "balance change",
+      "transaction",
+      true
+    );
   }
 
-  private String getSubjectOf(BalanceChanged event) {
+  @KafkaListener(topics = "balances", groupId = "mail")
+  public void send(String serializedEvent) {
+    var event = json.deserialize(serializedEvent, BalanceChanged.class);
+    super.send(event);
+  }
+
+  protected String clientOf(BalanceChanged event) { return event.client().fullName(); }
+  protected String recipientOf(BalanceChanged event) { return event.client().email(); }
+
+  protected String subjectOf(BalanceChanged event) {
     String partner = event.partner().fullName();
     BigDecimal delta = event.delta();
     BigDecimal amount = delta.abs();
 
     String status = "Transaction completed";
     String template = delta.compareTo(BigDecimal.ZERO) > 0
-    ? "received %s$ from %s"
-    : "sent %s$ to %s";
+      ? "received {0}$ from {1}"
+      : "sent {0}$ to {1}";
     
     String delimiter = ": ";
-    return status + delimiter + template.formatted(amount, partner);
+    return status + delimiter + MessageFormat.format(template, amount, partner);
   }
 
-  private String getContentOf(BalanceChanged event) {
-    String client = event.client().fullName();
+  protected String contentOf(BalanceChanged event) {
     String partner = event.partner().fullName();
     BigDecimal delta = event.delta();
-    
+    String time = formatInstant(event.timestamp());
+
+    return MessageFormat.format(
+      """
+      Partner: {0}
+      Balance Change: {1}$
+      Date and time: {2}
+      """,
+      partner,
+      delta,
+      time
+    );
+  }
+
+  private String formatInstant(Instant time) {
     var dateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss 'GMT'");
     dateFormatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-    String timestamp = dateFormatter.format(Date.from(event.timestamp()));
-
-    return
-      """
-      Dear %s,
-
-      Your transaction has been successfully processed. See details:
-
-      Partner: %s
-      Balance Change: %s$
-      Date and time: %s
-
-      Thank you for trust in our services.
-
-      Best regards,
-      Epayment
-      """.formatted(client, partner, delta, timestamp);
+    return dateFormatter.format(Date.from(time));
   }
 }

@@ -26,7 +26,7 @@ public class BalanceChangedMailSenderTests {
     // arrange
     String serializedEvent = json.serialize(
       new BalanceChanged(
-        BigDecimal.valueOf(100L, 2),
+        BigDecimal.valueOf(1001L, 2),
         new BalanceChanged.Endpoint("client@email", "clientName"),
         new BalanceChanged.Endpoint("partner@email", "partnerName"),
         Instant.ofEpochMilli(0L)
@@ -34,21 +34,22 @@ public class BalanceChangedMailSenderTests {
     );
 
     // act
-    eventMailSender.sendMail(serializedEvent);
+    eventMailSender.send(serializedEvent);
 
     // assert
     var expectedMessage = new SimpleMailMessage();
 
     expectedMessage.setTo("client@email");
-    expectedMessage.setSubject("Transaction completed: received 1.00$ from partnerName");
+    expectedMessage.setSubject("Transaction completed: received 10.01$ from partnerName");
     expectedMessage.setText(
       """
       Dear clientName,
 
-      Your transaction has been successfully processed. See details:
+      Your balance change has been successfully processed.
+      Below are the details of your transaction:
 
       Partner: partnerName
-      Balance Change: 1.00$
+      Balance Change: 10.01$
       Date and time: 01-01-1970 00:00:00 GMT
 
       Thank you for trust in our services.
