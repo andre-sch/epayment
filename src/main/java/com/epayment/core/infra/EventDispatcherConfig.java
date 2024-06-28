@@ -1,21 +1,31 @@
 package com.epayment.core.infra;
 
-import com.epayment.core.domain.BalanceChanged;
-import com.epayment.core.domain.EventDispatcher;
-import com.epayment.core.adapters.kafka.KafkaProducer;
-
+import com.epayment.core.domain.*;
+import com.epayment.core.adapters.kafka.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
 
 @Configuration
 public class EventDispatcherConfig {
-  @Autowired KafkaProducer<BalanceChanged> kafkaProducer;
+  @Autowired private BalanceChangedKafkaProducer balanceChangedKafkaProducer;
+  @Autowired private AccountCreatedKafkaProducer accountCreatedKafkaProducer;
 
   @Bean
   public EventDispatcher<BalanceChanged> balanceChangedDispatcher() {
-    var dispatcher = new EventDispatcher<BalanceChanged>();
-    dispatcher.attach(kafkaProducer);
+    return dispatcherWithOneKafkaProducer(balanceChangedKafkaProducer);
+  }
+  
+  @Bean
+  public EventDispatcher<AccountCreated> accountCreatedDispatcher() {
+    return dispatcherWithOneKafkaProducer(accountCreatedKafkaProducer);
+  }
+
+  private <Event> EventDispatcher<Event> dispatcherWithOneKafkaProducer(
+    KafkaProducer<Event> producer
+  ) {
+    var dispatcher = new EventDispatcher<Event>();
+    dispatcher.attach(producer);
     return dispatcher;
   }
 }

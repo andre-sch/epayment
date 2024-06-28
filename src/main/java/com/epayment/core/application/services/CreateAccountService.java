@@ -3,6 +3,8 @@ package com.epayment.core.application.services;
 import java.math.BigDecimal;
 import jakarta.validation.constraints.*;
 import com.epayment.core.domain.Account;
+import com.epayment.core.domain.AccountCreated;
+import com.epayment.core.domain.EventDispatcher;
 import com.epayment.core.domain.exceptions.OperationalException;
 import com.epayment.core.application.repositories.AccountRepository;
 
@@ -14,13 +16,16 @@ public class CreateAccountService {
   private final BigDecimal initialCredit = BigDecimal.valueOf(10000L, 2);
   
   private AccountRepository accountRepository;
+  private EventDispatcher<AccountCreated> eventDispatcher;
   private PasswordEncoder passwordEncoder;
 
   public CreateAccountService(
     AccountRepository accountRepository,
+    EventDispatcher<AccountCreated> eventDispatcher,
     PasswordEncoder passwordEncoder
   ) {
     this.accountRepository = accountRepository;
+    this.eventDispatcher = eventDispatcher;
     this.passwordEncoder = passwordEncoder;
   }
 
@@ -39,6 +44,10 @@ public class CreateAccountService {
     account.credit(initialCredit);
     
     this.accountRepository.save(account);
+    
+    account
+      .getEvents()
+      .forEach(this.eventDispatcher::dispatch);
 
     return account;
   }
