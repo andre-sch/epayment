@@ -20,8 +20,8 @@ public class Transaction {
   private @Getter BigDecimal amount;
   private @Getter Instant completedAt;
 
-  @Transient private TransactionParser transactionParser = new TransactionParser();
-  @Transient @Getter private List<BalanceChanged> events = new LinkedList<>();
+  private @Transient TransactionParser transactionParser = new TransactionParser();
+  private @Transient @Getter List<BalanceChanged> events = new LinkedList<>();
 
   public void execute() {
     this.sender.debit(amount);

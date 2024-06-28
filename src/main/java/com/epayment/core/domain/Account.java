@@ -1,5 +1,6 @@
 package com.epayment.core.domain;
 
+import java.util.*;
 import java.math.BigDecimal;
 import com.epayment.core.domain.exceptions.*;
 import jakarta.persistence.*;
@@ -18,6 +19,12 @@ public class Account {
   private @Getter @Setter String email;
   private @Getter @Setter String password;
   private @Getter @Setter String fullName;
+
+  private @Transient @Getter List<AccountCreated> events = new LinkedList<>();
+
+  public Account() {
+    this.events.add(AccountCreated.of(this));
+  }
 
   public void credit(BigDecimal value) {
     this.balance = this.balance.add(value);
