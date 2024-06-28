@@ -10,4 +10,9 @@ public class KafkaConfig {
   public NewTopic balancesTopic() {
     return TopicBuilder.name("balances").build();
   }
+
+  @Bean
+  public NewTopic accountsTopic() {
+    return TopicBuilder.name("accounts").build();
+  }
 }
