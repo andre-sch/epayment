@@ -43,11 +43,12 @@ public class CreateAccountService {
     
     account.credit(initialCredit);
     
+    account.recordChanges();
     this.accountRepository.save(account);
     
     account
       .getEvents()
-      .forEach(this.eventDispatcher::dispatch);
+      .forEach(eventDispatcher::dispatch);
 
     return account;
   }

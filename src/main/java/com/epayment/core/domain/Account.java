@@ -22,7 +22,7 @@ public class Account {
 
   private @Transient @Getter List<AccountCreated> events = new LinkedList<>();
 
-  public Account() {
+  public void recordChanges() {
     this.events.add(AccountCreated.of(this));
   }
 
