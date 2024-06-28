@@ -25,7 +25,7 @@ public class BalanceChangedMailSender extends MailSender<BalanceChanged> {
     );
   }
 
-  @KafkaListener(topics = "balances", groupId = "mail")
+  @KafkaListener(topics = "balances", groupId = "balances_mail")
   public void send(String serializedEvent) {
     var event = json.deserialize(serializedEvent, BalanceChanged.class);
     super.send(event);
