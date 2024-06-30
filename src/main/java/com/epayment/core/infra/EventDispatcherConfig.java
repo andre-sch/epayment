@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 @Configuration
 public class EventDispatcherConfig {
   @Autowired private BalanceChangedKafkaProducer balanceChangedKafkaProducer;
-  @Autowired private AccountCreatedKafkaProducer accountCreatedKafkaProducer;
+  @Autowired private AccountEventKafkaProducer accountCreatedKafkaProducer;
 
   @Bean
   public EventDispatcher<BalanceChanged> balanceChangedDispatcher() {
@@ -17,7 +17,7 @@ public class EventDispatcherConfig {
   }
   
   @Bean
-  public EventDispatcher<AccountCreated> accountCreatedDispatcher() {
+  public EventDispatcher<AccountEvent> accountCreatedDispatcher() {
     return dispatcherWithOneKafkaProducer(accountCreatedKafkaProducer);
   }
 

@@ -20,11 +20,10 @@ public class Account {
   private @Getter @Setter String password;
   private @Getter @Setter String fullName;
 
-  private @Transient @Getter List<AccountCreated> events = new LinkedList<>();
+  private @Transient @Getter List<AccountEvent> events = new LinkedList<>();
 
-  public void recordChanges() {
-    this.events.add(AccountCreated.of(this));
-  }
+  public void record() { this.events.add(AccountCreated.of(this)); }
+  public void delete() { this.events.add(AccountDeleted.of(this)); }
 
   public void credit(BigDecimal value) {
     this.balance = this.balance.add(value);
