@@ -23,4 +23,13 @@ public class StandardJsonConverter implements JsonConverter {
     try { return objectMapper.readValue(input, clazz); }
     catch (Exception e) { throw new OperationalException("json is not deserializable"); }
   }
+
+  public <T> boolean match(String input, Class<T> clazz) {
+    try {
+      objectMapper.readValue(input, clazz);
+      return true;
+    } catch(Exception e) {
+      return false;
+    }
+  }
 }

@@ -22,10 +22,10 @@ public class AccountCreatedMailSender extends MailSender<AccountCreated> {
 
   @KafkaListener(topics = "accounts", groupId = "accounts_mail")
   public void send(String serializedEvent) {
-    try {  // serialized event may not be an AccountCreated
+    if (json.match(serializedEvent, AccountCreated.class)) {
       var event = json.deserialize(serializedEvent, AccountCreated.class);
       super.send(event);
-    } catch(Exception e) {}
+    }
   }
 
   protected String clientOf(AccountCreated event) { return event.fullName(); }
