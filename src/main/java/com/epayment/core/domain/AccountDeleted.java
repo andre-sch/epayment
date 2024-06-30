@@ -4,16 +4,16 @@ import java.math.BigDecimal;
 
 public record AccountDeleted(
   int id,
+  String email,
+  String fullName,
   BigDecimal balance
 ) implements AccountEvent {
   public static AccountDeleted of(Account account) {
     return new AccountDeleted(
       account.getId(),
+      account.getEmail(),
+      account.getFullName(),
       account.getBalance()
     );
-  }
-
-  public String key() {
-    return Integer.toString(id);
   }
 }

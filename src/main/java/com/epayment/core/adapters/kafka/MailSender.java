@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Component
 public abstract class MailSender<Event> {
-  private final String blankLine = "";
-  private final String delimiter = "\n";
+  protected final String blankLine = "";
+  protected final String delimiter = "\n";
   
-  private final String eventName;
-  private final String entityName;
-  private final boolean isSuccessful;
+  protected final String eventName;
+  protected final String entityName;
+  protected final boolean isSuccessful;
   
   @Autowired private JavaMailSender mailSender;
 
@@ -41,7 +41,7 @@ public abstract class MailSender<Event> {
   protected abstract String recipientOf(Event event);
   protected abstract String subjectOf(Event event);
 
-  private String textOf(Event event) {
+  protected String textOf(Event event) {
     return String.join(
       delimiter,
       headerOf(event),

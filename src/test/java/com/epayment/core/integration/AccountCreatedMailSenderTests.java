@@ -25,9 +25,10 @@ public class AccountCreatedMailSenderTests {
     // arrange
     String serializedEvent = json.serialize(
       new AccountCreated(
-        BigDecimal.valueOf(1001L, 2),
+        1,
         "client@email",
-        "clientName"
+        "clientName",
+        BigDecimal.valueOf(1001L, 2)
       )
     );
 

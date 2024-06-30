@@ -3,19 +3,17 @@ package com.epayment.core.domain;
 import java.math.BigDecimal;
 
 public record AccountCreated(
-  BigDecimal balance,
+  int id,
   String email,
-  String fullName
+  String fullName,
+  BigDecimal balance
 ) implements AccountEvent {
   public static AccountCreated of(Account account) {
     return new AccountCreated(
-      account.getBalance(),
+      account.getId(),
       account.getEmail(),
-      account.getFullName()
+      account.getFullName(),
+      account.getBalance()
     );
-  }
-
-  public String key() {
-    return email;
   }
 }

@@ -20,7 +20,7 @@ public class AccountCreatedMailSender extends MailSender<AccountCreated> {
     );
   }
 
-  @KafkaListener(topics = "accounts", groupId = "accounts_mail")
+  @KafkaListener(topics = "accounts", groupId = "created_accounts_mail")
   public void send(String serializedEvent) {
     if (json.match(serializedEvent, AccountCreated.class)) {
       var event = json.deserialize(serializedEvent, AccountCreated.class);
@@ -38,7 +38,7 @@ public class AccountCreatedMailSender extends MailSender<AccountCreated> {
   protected String contentOf(AccountCreated event) {
     return MessageFormat.format(
       """
-      Balance: {0}$
+      Initial credit: {0}$
       Full name: {1}
       Email: {2}
       """,
