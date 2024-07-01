@@ -6,7 +6,7 @@ public record AccountDeleted(
   int id,
   String email,
   String fullName,
-  BigDecimal balance
+  BigDecimal oldBalance
 ) implements AccountEvent {
   public static AccountDeleted of(Account account) {
     return new AccountDeleted(

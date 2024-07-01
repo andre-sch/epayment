@@ -24,8 +24,8 @@ public class BalanceChangedKafkaProducerTests {
   public void sendingOfMessages() {
     var event = new BalanceChanged(
       BigDecimal.ONE,
-      new BalanceChanged.Endpoint("client@email", "clientName"),
-      new BalanceChanged.Endpoint("partner@email", "partnerName"),
+      new BalanceChanged.Endpoint(1, "client@email", "clientName"),
+      new BalanceChanged.Endpoint(2, "partner@email", "partnerName"),
       Instant.now()
     );
 
