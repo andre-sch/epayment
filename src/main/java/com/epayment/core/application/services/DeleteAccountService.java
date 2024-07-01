@@ -29,7 +29,7 @@ public class DeleteAccountService {
     var account = accountQuery.get();
     
     account.delete();
-    this.accountRepository.delete(account);
+    this.accountRepository.save(account);
 
     account
       .getEvents()

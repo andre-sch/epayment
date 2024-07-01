@@ -23,7 +23,13 @@ public class Account {
   private @Transient @Getter List<AccountEvent> events = new LinkedList<>();
 
   public void record() { this.events.add(AccountCreated.of(this)); }
-  public void delete() { this.events.add(AccountDeleted.of(this)); }
+  public void delete() {
+    this.events.add(AccountDeleted.of(this));
+    
+    this.email = null;
+    this.password = null;
+    this.fullName = null;
+  }
 
   public void credit(BigDecimal value) {
     this.balance = this.balance.add(value);
