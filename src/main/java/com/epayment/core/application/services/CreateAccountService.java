@@ -43,8 +43,8 @@ public class CreateAccountService {
     
     account.credit(initialCredit);
     
-    account.record();
     this.accountRepository.save(account);
+    account.record();
     
     account
       .getEvents()
