@@ -18,11 +18,18 @@ public abstract class EventLogger {
   public void log(String serializedEvent) {
     for (var eventDataFilter : eventDataFilters) {
       try {
-        var event = json.deserialize(serializedEvent, eventDataFilter.getInputClass());
+        var inputClass = eventDataFilter.getInputClass();
+        var event = json.deserialize(serializedEvent, inputClass);
         var filteredEvent = eventDataFilter.filter(event);
-        log.info(json.serialize(filteredEvent));
+
+        log.info(format(inputClass.getName(), json.serialize(filteredEvent)));
       } catch (Exception e) {}
     }
+  }
+
+  private String format(String className, String event) {
+    final String delimiter = ":";
+    return String.join(delimiter, className, event);
   }
 
   public interface DataFilter {
