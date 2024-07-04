@@ -3,28 +3,22 @@ package com.epayment.core.adapters.kafka;
 import java.math.BigDecimal;
 import java.time.Instant;
 import com.epayment.core.domain.BalanceChanged;
+import com.epayment.core.application.interfaces.JsonConverter;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BalanceChangedKafkaLogger extends EventLogger {
-  public BalanceChangedKafkaLogger() {
-    super(new DataFilter[] { new BalanceChangedDataFilter() });
-  }
+public class BalanceChangedKafkaLogger extends EventLogger<BalanceChanged> {
+  @Autowired private JsonConverter json;
 
   @KafkaListener(topics = "balances", groupId = "balances_logger")
   public void log(String serializedEvent) {
-    super.log(serializedEvent);
-  }
-}
-
-class BalanceChangedDataFilter implements EventLogger.DataFilter {
-  public Class<?> getInputClass() {
-    return BalanceChanged.class;
+    var event = json.deserialize(serializedEvent, BalanceChanged.class);
+    super.log(event);
   }
 
-  public BalanceChangeFiltered filter(Object input) {
-    var event = (BalanceChanged) input;
+  public BalanceChangeFiltered filterSensitiveData(BalanceChanged event) {
     return new BalanceChangeFiltered(
       event.delta(),
       event.client().id(),

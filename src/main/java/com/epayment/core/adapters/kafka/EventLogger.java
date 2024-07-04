@@ -7,33 +7,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public abstract class EventLogger {
-  private final DataFilter[] eventDataFilters;
+public abstract class EventLogger<Event> {
+  private final String delimiter = ":";
   @Autowired private JsonConverter json;
 
-  public EventLogger(DataFilter[] eventDataFilters) {
-    this.eventDataFilters = eventDataFilters;
+  public void log(Event event) {
+    var eventName = event.getClass().getName();
+    var filteredEvent = filterSensitiveData(event);
+
+    log.info(String.join(delimiter, eventName, json.serialize(filteredEvent)));
   }
 
-  public void log(String serializedEvent) {
-    for (var eventDataFilter : eventDataFilters) {
-      try {
-        var inputClass = eventDataFilter.getInputClass();
-        var event = json.deserialize(serializedEvent, inputClass);
-        var filteredEvent = eventDataFilter.filter(event);
-
-        log.info(format(inputClass.getName(), json.serialize(filteredEvent)));
-      } catch (Exception e) {}
-    }
-  }
-
-  private String format(String className, String event) {
-    final String delimiter = ":";
-    return String.join(delimiter, className, event);
-  }
-
-  public interface DataFilter {
-    public Object filter(Object input);
-    public Class<?> getInputClass();
-  }
+  protected abstract Object filterSensitiveData(Event event);
 }
