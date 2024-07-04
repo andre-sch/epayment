@@ -2,9 +2,7 @@ package com.epayment.core.integration;
 
 import java.math.BigDecimal;
 import com.epayment.core.domain.AccountCreated;
-import com.epayment.core.application.interfaces.JsonConverter;
 import com.epayment.core.adapters.kafka.AccountCreatedMailSender;
-
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,22 +16,20 @@ import static org.mockito.Mockito.verify;
 public class AccountCreatedMailSenderTests {
   @Autowired private JavaMailSender javaMailSender;
   @Autowired private AccountCreatedMailSender eventMailSender;
-  @Autowired private JsonConverter json; 
 
   @Test
   public void mailSending() {
     // arrange
-    String serializedEvent = json.serialize(
-      new AccountCreated(
-        1,
-        "client@email",
-        "clientName",
-        BigDecimal.valueOf(1001L, 2)
-      )
+    int accountId = 1;
+    var event = new AccountCreated(
+      accountId,
+      "client@email",
+      "clientName",
+      BigDecimal.valueOf(1001L, 2)
     );
 
     // act
-    eventMailSender.send(serializedEvent);
+    eventMailSender.send(event);
 
     // assert
     var expectedMessage = new SimpleMailMessage();

@@ -3,9 +3,7 @@ package com.epayment.core.integration;
 import java.time.Instant;
 import java.math.BigDecimal;
 import com.epayment.core.domain.BalanceChanged;
-import com.epayment.core.application.interfaces.JsonConverter;
 import com.epayment.core.adapters.kafka.BalanceChangedMailSender;
-
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,22 +17,19 @@ import static org.mockito.Mockito.verify;
 public class BalanceChangedMailSenderTests {
   @Autowired private JavaMailSender javaMailSender;
   @Autowired private BalanceChangedMailSender eventMailSender;
-  @Autowired private JsonConverter json; 
 
   @Test
   public void mailSending() {
     // arrange
-    String serializedEvent = json.serialize(
-      new BalanceChanged(
-        BigDecimal.valueOf(1001L, 2),
-        new BalanceChanged.Endpoint(1, "client@email", "clientName"),
-        new BalanceChanged.Endpoint(2, "partner@email", "partnerName"),
-        Instant.ofEpochMilli(0L)
-      )
+    var event = new BalanceChanged(
+      BigDecimal.valueOf(1001L, 2),
+      new BalanceChanged.Endpoint(1, "client@email", "clientName"),
+      new BalanceChanged.Endpoint(2, "partner@email", "partnerName"),
+      Instant.ofEpochMilli(0L)
     );
 
     // act
-    eventMailSender.send(serializedEvent);
+    eventMailSender.send(event);
 
     // assert
     var expectedMessage = new SimpleMailMessage();
