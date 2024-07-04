@@ -7,12 +7,17 @@ import org.springframework.context.annotation.*;
 @Configuration
 public class KafkaConfig {
   @Bean
+  public NewTopic accountsTopic() {
+    return TopicBuilder.name("accounts").build();
+  }
+
+  @Bean
   public NewTopic balancesTopic() {
     return TopicBuilder.name("balances").build();
   }
 
   @Bean
-  public NewTopic accountsTopic() {
-    return TopicBuilder.name("accounts").build();
+  public NewTopic transactionsTopic() {
+    return TopicBuilder.name("transactions").build();
   }
 }

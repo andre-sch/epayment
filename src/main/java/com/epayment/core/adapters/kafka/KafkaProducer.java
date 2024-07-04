@@ -20,8 +20,6 @@ public abstract class KafkaProducer<Event> implements Consumer<Event> {
   }
 
   protected abstract String topicOf(Event event);
-  protected abstract String keyOf(Event event);
-  protected String valueOf(Event event) {
-    return json.serialize(event);
-  }
+  protected String keyOf(Event event) { return null; }
+  protected String valueOf(Event event) { return json.serialize(event); }
 }
