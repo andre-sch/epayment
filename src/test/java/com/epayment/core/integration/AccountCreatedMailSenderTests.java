@@ -47,7 +47,7 @@ public class AccountCreatedMailSenderTests {
       Your account creation has been successfully processed.
       Below are the details of your account:
 
-      Balance: 10.01$
+      Initial credit: 10.01$
       Full name: clientName
       Email: client@email
 
