@@ -9,11 +9,11 @@ import com.epayment.core.application.repositories.AccountRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class ListAccountDetails {
+public class ListAccountDetailsController {
   private AccountRepository accountRepository;
   private ValidationService validationService;
 
-  public ListAccountDetails(
+  public ListAccountDetailsController(
     AccountRepository accountRepository,
     ValidationService validationService
   ) {

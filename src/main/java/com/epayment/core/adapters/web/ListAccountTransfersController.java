@@ -13,12 +13,12 @@ import com.epayment.core.application.services.ValidationService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class ListAccountTransfers {
+public class ListAccountTransfersController {
   private AccountRepository accountRepository;
   private TransactionRepository transactionRepository;
   private ValidationService validationService;
   
-  public ListAccountTransfers(
+  public ListAccountTransfersController(
     AccountRepository accountRepository,
     TransactionRepository transactionRepository,
     ValidationService validationService
