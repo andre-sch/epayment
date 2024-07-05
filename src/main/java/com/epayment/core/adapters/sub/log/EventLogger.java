@@ -1,4 +1,4 @@
-package com.epayment.core.adapters.log;
+package com.epayment.core.adapters.sub.log;
 
 import com.epayment.core.domain.DomainLogger;
 import com.epayment.core.application.interfaces.JsonConverter;

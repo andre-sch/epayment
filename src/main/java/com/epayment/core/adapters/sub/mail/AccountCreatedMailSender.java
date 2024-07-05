@@ -1,4 +1,4 @@
-package com.epayment.core.adapters.mail;
+package com.epayment.core.adapters.sub.mail;
 
 import java.text.MessageFormat;
 import com.epayment.core.domain.AccountCreated;

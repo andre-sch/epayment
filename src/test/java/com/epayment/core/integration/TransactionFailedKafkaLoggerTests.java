@@ -3,7 +3,7 @@ package com.epayment.core.integration;
 import java.math.BigDecimal;
 import com.epayment.core.domain.DomainLogger;
 import com.epayment.core.domain.TransactionFailed;
-import com.epayment.core.adapters.log.TransactionFailedKafkaLogger;
+import com.epayment.core.adapters.sub.log.TransactionFailedKafkaLogger;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.beans.factory.annotation.Autowired;

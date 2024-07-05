@@ -1,4 +1,4 @@
-package com.epayment.core.adapters.log;
+package com.epayment.core.adapters.sub.log;
 
 import java.math.BigDecimal;
 import java.time.Instant;
