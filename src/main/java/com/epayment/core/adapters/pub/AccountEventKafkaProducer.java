@@ -1,4 +1,4 @@
-package com.epayment.core.adapters.kafka;
+package com.epayment.core.adapters.pub;
 
 import com.epayment.core.domain.AccountEvent;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.epayment.core.adapters.kafka;
+package com.epayment.core.adapters.pub;
 
 import java.util.function.Consumer;
 import com.epayment.core.application.interfaces.JsonConverter;

@@ -1,7 +1,7 @@
 package com.epayment.core.infra;
 
 import com.epayment.core.domain.*;
-import com.epayment.core.adapters.kafka.*;
+import com.epayment.core.adapters.pub.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
