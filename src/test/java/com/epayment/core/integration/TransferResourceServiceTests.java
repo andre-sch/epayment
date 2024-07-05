@@ -14,6 +14,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -25,7 +26,8 @@ public class TransferResourceServiceTests {
   private final DummyAccountFactory accountFactory = new DummyAccountFactory();
   private final TransactionParser transactionParser = new TransactionParser();
 
-  @MockBean private EventDispatcher<BalanceChanged> eventDispatcher;
+  @MockBean private EventDispatcher<BalanceChanged> balanceChangedDispatcher;
+  @MockBean private EventDispatcher<TransactionFailed> transactionFailedDispatcher;
   @Autowired private AccountRepository accountRepository;
   @Autowired private TransactionRepository transactionRepository;
   @Autowired private TransferResourceService transferResourceService;
@@ -49,9 +51,27 @@ public class TransferResourceServiceTests {
     assertThat(transaction.getSender().getBalance()).isEqualTo(zero);
     transactionParser
       .parseBalanceChangesOf(transaction)
-      .forEach((var change) -> verify(eventDispatcher).dispatch(change));
+      .forEach((var change) -> verify(balanceChangedDispatcher).dispatch(change));
     
     this.transactionRepository.deleteAll();
+  }
+
+  @Test
+  public void resourceTransferenceFails() {
+    var request = new TransferResourceService.Request("unknown.sender@email", "unknown.receiver@email", amount);
+    
+    assertThrows(RuntimeException.class, () -> {
+      this.transferResourceService.execute(request);
+    });
+    
+    var unknownEndpoint = TransactionFailed.Endpoint.of(null);
+    verify(transactionFailedDispatcher).dispatch(
+      new TransactionFailed(
+        amount,
+        unknownEndpoint,
+        unknownEndpoint
+      )
+    );
   }
 
   private Account insertedAccount() {
