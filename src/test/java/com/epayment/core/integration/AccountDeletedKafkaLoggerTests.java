@@ -3,7 +3,7 @@ package com.epayment.core.integration;
 import java.math.BigDecimal;
 import com.epayment.core.domain.DomainLogger;
 import com.epayment.core.domain.AccountDeleted;
-import com.epayment.core.adapters.kafka.AccountDeletedKafkaLogger;
+import com.epayment.core.adapters.log.AccountDeletedKafkaLogger;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.beans.factory.annotation.Autowired;

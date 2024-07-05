@@ -1,4 +1,4 @@
-package com.epayment.core.adapters.kafka;
+package com.epayment.core.adapters.log;
 
 import com.epayment.core.domain.DomainLogger;
 import com.epayment.core.application.interfaces.JsonConverter;

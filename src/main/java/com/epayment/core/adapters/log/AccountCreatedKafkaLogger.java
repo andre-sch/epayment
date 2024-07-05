@@ -1,4 +1,4 @@
-package com.epayment.core.adapters.kafka;
+package com.epayment.core.adapters.log;
 
 import java.math.BigDecimal;
 import com.epayment.core.domain.AccountCreated;
