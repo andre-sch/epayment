@@ -1,4 +1,4 @@
-package com.epayment.core.adapters.kafka;
+package com.epayment.core.adapters.mail;
 
 import com.epayment.core.domain.AccountDeleted;
 import com.epayment.core.application.interfaces.JsonConverter;

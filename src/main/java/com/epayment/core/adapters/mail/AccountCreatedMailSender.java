@@ -1,4 +1,4 @@
-package com.epayment.core.adapters.kafka;
+package com.epayment.core.adapters.mail;
 
 import java.text.MessageFormat;
 import com.epayment.core.domain.AccountCreated;

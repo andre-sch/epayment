@@ -1,4 +1,4 @@
-package com.epayment.core.adapters.kafka;
+package com.epayment.core.adapters.mail;
 
 import java.util.*;
 import java.math.BigDecimal;

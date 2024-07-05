@@ -3,7 +3,7 @@ package com.epayment.core.integration;
 import java.time.Instant;
 import java.math.BigDecimal;
 import com.epayment.core.domain.BalanceChanged;
-import com.epayment.core.adapters.kafka.BalanceChangedMailSender;
+import com.epayment.core.adapters.mail.BalanceChangedMailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.boot.test.context.SpringBootTest;
