@@ -1,9 +1,9 @@
-package com.epayment.core.integration;
+package com.epayment.core.integration.log;
 
 import java.math.BigDecimal;
 import com.epayment.core.domain.DomainLogger;
-import com.epayment.core.domain.events.AccountDeleted;
-import com.epayment.core.adapters.sub.log.AccountDeletedKafkaLogger;
+import com.epayment.core.domain.events.AccountCreated;
+import com.epayment.core.adapters.sub.log.AccountCreatedKafkaLogger;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +13,14 @@ import org.mockito.Mockito;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class AccountDeletedKafkaLoggerTests {
+public class AccountCreatedKafkaLoggerTests {
   @MockBean private DomainLogger logger;
-  @Autowired private AccountDeletedKafkaLogger eventLogger;
+  @Autowired private AccountCreatedKafkaLogger eventLogger;
 
   @Test
   public void logging() {
     int accountId = 1;
-    var event = new AccountDeleted(
+    var event = new AccountCreated(
       accountId,
       "client@email",
       "clientName",
@@ -30,8 +30,8 @@ public class AccountDeletedKafkaLoggerTests {
     eventLogger.log(event);
 
     Mockito.verify(logger).info(
-      "com.epayment.core.domain.AccountDeleted:" +
-      "{\"id\":1,\"oldBalance\":10.01}"
+      "com.epayment.core.domain.AccountCreated:" +
+      "{\"id\":1,\"balance\":10.01}"
     );
   }
 }

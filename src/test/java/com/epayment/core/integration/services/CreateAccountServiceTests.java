@@ -1,4 +1,4 @@
-package com.epayment.core.integration;
+package com.epayment.core.integration.services;
 
 import java.math.BigDecimal;
 import com.epayment.core.domain.*;

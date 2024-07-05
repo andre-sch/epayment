@@ -1,8 +1,8 @@
-package com.epayment.core.integration;
+package com.epayment.core.integration.mail;
 
 import java.math.BigDecimal;
-import com.epayment.core.domain.events.AccountCreated;
-import com.epayment.core.adapters.sub.mail.AccountCreatedMailSender;
+import com.epayment.core.domain.events.AccountDeleted;
+import com.epayment.core.adapters.sub.mail.AccountDeletedMailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,19 +13,19 @@ import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class AccountCreatedMailSenderTests {
+public class AccountDeletedMailSenderTests {
   @Autowired private JavaMailSender javaMailSender;
-  @Autowired private AccountCreatedMailSender eventMailSender;
+  @Autowired private AccountDeletedMailSender eventMailSender;
 
   @Test
   public void mailSending() {
     // arrange
     int accountId = 1;
-    var event = new AccountCreated(
+    var event = new AccountDeleted(
       accountId,
       "client@email",
       "clientName",
-      BigDecimal.valueOf(1001L, 2)
+      BigDecimal.ONE
     );
 
     // act
@@ -35,18 +35,12 @@ public class AccountCreatedMailSenderTests {
     var expectedMessage = new SimpleMailMessage();
 
     expectedMessage.setTo("client@email");
-    expectedMessage.setSubject("Your Epayment account has been created successfully");
+    expectedMessage.setSubject("Your Epayment account has been deleted");
     expectedMessage.setText(
       """
       Dear clientName,
 
-      Your account creation has been successfully processed.
-      Below are the details of your account:
-
-      Initial credit: 10.01$
-      Full name: clientName
-      Email: client@email
-
+      Your account deletion has been successfully processed.
       Thank you for trust in our services.
 
       Best regards,

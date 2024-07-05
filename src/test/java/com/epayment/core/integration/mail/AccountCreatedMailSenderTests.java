@@ -1,9 +1,8 @@
-package com.epayment.core.integration;
+package com.epayment.core.integration.mail;
 
-import java.time.Instant;
 import java.math.BigDecimal;
-import com.epayment.core.domain.events.BalanceChanged;
-import com.epayment.core.adapters.sub.mail.BalanceChangedMailSender;
+import com.epayment.core.domain.events.AccountCreated;
+import com.epayment.core.adapters.sub.mail.AccountCreatedMailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,18 +13,19 @@ import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class BalanceChangedMailSenderTests {
+public class AccountCreatedMailSenderTests {
   @Autowired private JavaMailSender javaMailSender;
-  @Autowired private BalanceChangedMailSender eventMailSender;
+  @Autowired private AccountCreatedMailSender eventMailSender;
 
   @Test
   public void mailSending() {
     // arrange
-    var event = new BalanceChanged(
-      BigDecimal.valueOf(1001L, 2),
-      new BalanceChanged.Endpoint(1, "client@email", "clientName"),
-      new BalanceChanged.Endpoint(2, "partner@email", "partnerName"),
-      Instant.ofEpochMilli(0L)
+    int accountId = 1;
+    var event = new AccountCreated(
+      accountId,
+      "client@email",
+      "clientName",
+      BigDecimal.valueOf(1001L, 2)
     );
 
     // act
@@ -35,17 +35,17 @@ public class BalanceChangedMailSenderTests {
     var expectedMessage = new SimpleMailMessage();
 
     expectedMessage.setTo("client@email");
-    expectedMessage.setSubject("Transaction completed: received 10.01$ from partnerName");
+    expectedMessage.setSubject("Your Epayment account has been created successfully");
     expectedMessage.setText(
       """
       Dear clientName,
 
-      Your balance change has been successfully processed.
-      Below are the details of your transaction:
+      Your account creation has been successfully processed.
+      Below are the details of your account:
 
-      Partner: partnerName
-      Balance Change: 10.01$
-      Date and time: 01-01-1970 00:00:00 GMT
+      Initial credit: 10.01$
+      Full name: clientName
+      Email: client@email
 
       Thank you for trust in our services.
 

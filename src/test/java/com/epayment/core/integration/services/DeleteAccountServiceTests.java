@@ -1,4 +1,4 @@
-package com.epayment.core.integration;
+package com.epayment.core.integration.services;
 
 import com.epayment.core.domain.*;
 import com.epayment.core.domain.events.AccountEvent;

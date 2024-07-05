@@ -1,8 +1,9 @@
-package com.epayment.core.integration;
+package com.epayment.core.integration.mail;
 
+import java.time.Instant;
 import java.math.BigDecimal;
-import com.epayment.core.domain.events.AccountDeleted;
-import com.epayment.core.adapters.sub.mail.AccountDeletedMailSender;
+import com.epayment.core.domain.events.BalanceChanged;
+import com.epayment.core.adapters.sub.mail.BalanceChangedMailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,19 +14,18 @@ import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class AccountDeletedMailSenderTests {
+public class BalanceChangedMailSenderTests {
   @Autowired private JavaMailSender javaMailSender;
-  @Autowired private AccountDeletedMailSender eventMailSender;
+  @Autowired private BalanceChangedMailSender eventMailSender;
 
   @Test
   public void mailSending() {
     // arrange
-    int accountId = 1;
-    var event = new AccountDeleted(
-      accountId,
-      "client@email",
-      "clientName",
-      BigDecimal.ONE
+    var event = new BalanceChanged(
+      BigDecimal.valueOf(1001L, 2),
+      new BalanceChanged.Endpoint(1, "client@email", "clientName"),
+      new BalanceChanged.Endpoint(2, "partner@email", "partnerName"),
+      Instant.ofEpochMilli(0L)
     );
 
     // act
@@ -35,12 +35,18 @@ public class AccountDeletedMailSenderTests {
     var expectedMessage = new SimpleMailMessage();
 
     expectedMessage.setTo("client@email");
-    expectedMessage.setSubject("Your Epayment account has been deleted");
+    expectedMessage.setSubject("Transaction completed: received 10.01$ from partnerName");
     expectedMessage.setText(
       """
       Dear clientName,
 
-      Your account deletion has been successfully processed.
+      Your balance change has been successfully processed.
+      Below are the details of your transaction:
+
+      Partner: partnerName
+      Balance Change: 10.01$
+      Date and time: 01-01-1970 00:00:00 GMT
+
       Thank you for trust in our services.
 
       Best regards,
