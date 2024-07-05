@@ -1,6 +1,7 @@
-package com.epayment.core.domain;
+package com.epayment.core.domain.events;
 
 import java.math.BigDecimal;
+import com.epayment.core.domain.Account;
 
 public record AccountCreated(
   int id,

@@ -2,7 +2,7 @@ package com.epayment.core.adapters.sub.log;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import com.epayment.core.domain.BalanceChanged;
+import com.epayment.core.domain.events.BalanceChanged;
 import com.epayment.core.application.interfaces.JsonConverter;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.beans.factory.annotation.Autowired;

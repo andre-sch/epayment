@@ -1,6 +1,6 @@
 package com.epayment.core.application.services;
 
-import com.epayment.core.domain.AccountEvent;
+import com.epayment.core.domain.events.AccountEvent;
 import com.epayment.core.domain.EventDispatcher;
 import com.epayment.core.domain.exceptions.OperationalException;
 import com.epayment.core.application.repositories.AccountRepository;

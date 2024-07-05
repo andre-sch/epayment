@@ -1,7 +1,7 @@
 package com.epayment.core.adapters.sub.log;
 
 import java.math.BigDecimal;
-import com.epayment.core.domain.TransactionFailed;
+import com.epayment.core.domain.events.TransactionFailed;
 import com.epayment.core.application.interfaces.JsonConverter;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.beans.factory.annotation.Autowired;

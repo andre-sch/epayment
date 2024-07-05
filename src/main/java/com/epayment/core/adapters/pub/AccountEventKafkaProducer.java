@@ -1,6 +1,6 @@
 package com.epayment.core.adapters.pub;
 
-import com.epayment.core.domain.AccountEvent;
+import com.epayment.core.domain.events.AccountEvent;
 import org.springframework.stereotype.Component;
 
 @Component

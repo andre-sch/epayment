@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.math.BigDecimal;
 import java.util.*;
 
+import com.epayment.core.domain.events.BalanceChanged;
 import com.epayment.core.domain.exceptions.*;
 import jakarta.persistence.*;
 import lombok.*;

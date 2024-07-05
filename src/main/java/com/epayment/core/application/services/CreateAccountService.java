@@ -3,7 +3,7 @@ package com.epayment.core.application.services;
 import java.math.BigDecimal;
 import jakarta.validation.constraints.*;
 import com.epayment.core.domain.Account;
-import com.epayment.core.domain.AccountEvent;
+import com.epayment.core.domain.events.AccountEvent;
 import com.epayment.core.domain.EventDispatcher;
 import com.epayment.core.domain.exceptions.OperationalException;
 import com.epayment.core.application.repositories.AccountRepository;

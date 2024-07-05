@@ -1,6 +1,8 @@
 package com.epayment.core.integration;
 
 import com.epayment.core.domain.*;
+import com.epayment.core.domain.events.AccountEvent;
+import com.epayment.core.domain.events.AccountDeleted;
 import com.epayment.core.application.repositories.AccountRepository;
 import com.epayment.core.application.services.DeleteAccountService;
 import com.epayment.core.utils.DummyAccountFactory;

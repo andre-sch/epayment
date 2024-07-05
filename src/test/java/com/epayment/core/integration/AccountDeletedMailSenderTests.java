@@ -1,7 +1,7 @@
 package com.epayment.core.integration;
 
 import java.math.BigDecimal;
-import com.epayment.core.domain.AccountDeleted;
+import com.epayment.core.domain.events.AccountDeleted;
 import com.epayment.core.adapters.sub.mail.AccountDeletedMailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;

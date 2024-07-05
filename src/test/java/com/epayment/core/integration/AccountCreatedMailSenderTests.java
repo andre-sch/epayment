@@ -1,7 +1,7 @@
 package com.epayment.core.integration;
 
 import java.math.BigDecimal;
-import com.epayment.core.domain.AccountCreated;
+import com.epayment.core.domain.events.AccountCreated;
 import com.epayment.core.adapters.sub.mail.AccountCreatedMailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;

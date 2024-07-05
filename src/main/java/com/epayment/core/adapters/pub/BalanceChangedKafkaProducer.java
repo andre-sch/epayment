@@ -1,6 +1,6 @@
 package com.epayment.core.adapters.pub;
 
-import com.epayment.core.domain.BalanceChanged;
+import com.epayment.core.domain.events.BalanceChanged;
 import org.springframework.stereotype.Component;
 
 @Component

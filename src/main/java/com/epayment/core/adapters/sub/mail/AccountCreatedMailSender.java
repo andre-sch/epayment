@@ -1,7 +1,7 @@
 package com.epayment.core.adapters.sub.mail;
 
 import java.text.MessageFormat;
-import com.epayment.core.domain.AccountCreated;
+import com.epayment.core.domain.events.AccountCreated;
 import com.epayment.core.application.interfaces.JsonConverter;
 
 import org.springframework.stereotype.Component;

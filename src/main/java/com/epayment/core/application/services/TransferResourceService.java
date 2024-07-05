@@ -5,8 +5,8 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.*;
 
 import com.epayment.core.domain.Account;
-import com.epayment.core.domain.BalanceChanged;
-import com.epayment.core.domain.TransactionFailed;
+import com.epayment.core.domain.events.BalanceChanged;
+import com.epayment.core.domain.events.TransactionFailed;
 import com.epayment.core.domain.EventDispatcher;
 import com.epayment.core.domain.Transaction;
 import com.epayment.core.domain.exceptions.OperationalException;

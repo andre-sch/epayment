@@ -3,7 +3,8 @@ package com.epayment.core.unit;
 import java.math.BigDecimal;
 import com.epayment.core.utils.*;
 import com.epayment.core.domain.*;
-import static com.epayment.core.domain.BalanceChanged.*;
+import com.epayment.core.domain.events.BalanceChanged;
+import static com.epayment.core.domain.events.BalanceChanged.*;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;

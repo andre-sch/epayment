@@ -2,6 +2,7 @@ package com.epayment.core.domain;
 
 import java.util.*;
 import java.math.BigDecimal;
+import com.epayment.core.domain.events.*;
 import com.epayment.core.domain.exceptions.*;
 import jakarta.persistence.*;
 import lombok.*;

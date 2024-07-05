@@ -2,6 +2,8 @@ package com.epayment.core.integration;
 
 import java.math.BigDecimal;
 import com.epayment.core.domain.*;
+import com.epayment.core.domain.events.BalanceChanged;
+import com.epayment.core.domain.events.TransactionFailed;
 import com.epayment.core.application.repositories.*;
 import com.epayment.core.application.services.*;
 import com.epayment.core.utils.DummyAccountFactory;

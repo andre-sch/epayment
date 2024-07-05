@@ -3,7 +3,7 @@ package com.epayment.core.integration;
 import java.time.Instant;
 import java.math.BigDecimal;
 import com.epayment.core.domain.DomainLogger;
-import com.epayment.core.domain.BalanceChanged;
+import com.epayment.core.domain.events.BalanceChanged;
 import com.epayment.core.adapters.sub.log.BalanceChangedKafkaLogger;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;

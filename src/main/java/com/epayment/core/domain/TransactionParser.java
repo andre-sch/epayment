@@ -5,7 +5,8 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.epayment.core.domain.BalanceChanged.Endpoint;
+import com.epayment.core.domain.events.BalanceChanged;
+import static com.epayment.core.domain.events.BalanceChanged.Endpoint;
 
 public class TransactionParser {
   private Transaction transaction;
