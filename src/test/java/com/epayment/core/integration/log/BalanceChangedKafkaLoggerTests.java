@@ -30,7 +30,7 @@ public class BalanceChangedKafkaLoggerTests {
     eventLogger.log(event);
 
     Mockito.verify(logger).info(
-      "com.epayment.core.domain.BalanceChanged:" +
+      "com.epayment.core.domain.events.BalanceChanged:" +
       "{\"delta\":10.01,\"client\":1,\"partner\":2,\"timestamp\":0.0}"
     );
   }

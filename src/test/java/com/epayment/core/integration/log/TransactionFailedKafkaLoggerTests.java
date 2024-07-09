@@ -28,7 +28,7 @@ public class TransactionFailedKafkaLoggerTests {
     eventLogger.log(event);
 
     Mockito.verify(logger).info(
-      "com.epayment.core.domain.TransactionFailed:" +
+      "com.epayment.core.domain.events.TransactionFailed:" +
       "{\"amount\":10.01,\"sender\":1,\"receiver\":2}"
     );
   }

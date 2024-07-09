@@ -30,7 +30,7 @@ public class AccountCreatedKafkaLoggerTests {
     eventLogger.log(event);
 
     Mockito.verify(logger).info(
-      "com.epayment.core.domain.AccountCreated:" +
+      "com.epayment.core.domain.events.AccountCreated:" +
       "{\"id\":1,\"balance\":10.01}"
     );
   }

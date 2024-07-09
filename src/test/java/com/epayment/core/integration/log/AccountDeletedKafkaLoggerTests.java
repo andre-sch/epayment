@@ -30,7 +30,7 @@ public class AccountDeletedKafkaLoggerTests {
     eventLogger.log(event);
 
     Mockito.verify(logger).info(
-      "com.epayment.core.domain.AccountDeleted:" +
+      "com.epayment.core.domain.events.AccountDeleted:" +
       "{\"id\":1,\"oldBalance\":10.01}"
     );
   }
